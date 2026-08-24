@@ -1,0 +1,41 @@
+# Subject manifest — convention 2.0 (docs/CONTENT_CONVENTION.md §3.2).
+# Upstream: github.com/kevin-cazal/santa_shooter_new (the subject repo, private),
+# itself converted from kevin-cazal/santa_shooter @ 6350590 — whose markdown is
+# carried over verbatim, with `ws:` markers added and a closing note per part
+# (the convention needs trailing prose to generate the closing/rating step).
+# This is the vendored copy the platform syncs from, same as content/pypong and
+# content/pacman. The reference .lua solutions stay in the original repo.
+schema_version: "2.0"
+
+project:
+  name: "Santa Shooter"
+  slug: "santa-shooter"
+  summary: "Programmez votre propre jeu de tir, en Lua, avec TIC-80."
+  entrypoint: "intro.md"
+
+# The web app shown beside the instructions (PLAN.md §14). Same dist as pypong:
+# both subjects are written for the TIC-80 editor, only the language differs.
+runtime:
+  engine: "TIC-80"
+  language: "lua"
+  id: "tic80"
+  version: "8ad976f"          # tic80-web-editor commit the dist was built from
+  title: "TIC-80"
+  pane:
+    placement: side           # side | bottom
+    open: false               # let the participant read the intro first
+    size: 55                  # percent of the viewport width
+
+platform:
+  mode_default: instructor_led
+  validation_default: checkpoint
+  points_default: 25
+
+# Reading order, which is also the unlocking order: each part's closing step
+# gates the next part. The digit in the filenames is the author's own ordering.
+documents:
+  - intro.md
+  - starter1.md
+  - visual_effects2.md
+  - code_refactor3.md
+  - gameplay4.md
