@@ -22,7 +22,7 @@ Le texte est du Markdown normal, lisible tel quel sur GitHub. Tout ce dont la pl
 - **Mode** : `instructor_led`
 - **Validation** : `checkpoint`
 - **Points par étape** : `25` par défaut
-- **Runtime** : TIC-80 (`tic80` épinglé en `8ad976f`) — [tic80-web-editor_runtime](https://github.com/kevin-cazal/tic80-web-editor_runtime)
+- **Runtime** : TIC-80 (`tic80` épinglé en `bf64803`) — [tic80-web-editor_runtime](https://github.com/kevin-cazal/tic80-web-editor_runtime)
 
 ## Mettre cet atelier en ligne
 
