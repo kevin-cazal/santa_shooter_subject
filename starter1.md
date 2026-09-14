@@ -25,8 +25,12 @@ Boite à outil:
 Ouvre le studio de TIC-80 pour dessiner ton premier sprite.
 <!-- illustration: cli TIC80, type `studio`, the sprite editor is open -->
 
+![Dans la console de TIC-80, on tape studio puis Entrée : l'éditeur de sprites s'ouvre.](img/sprite-studio.gif)
+
 Dessine le sprite qui servira à représenter le joueur:
 <!-- illustration: in sprite editor draw this sprite (one tile) pixel by pixel -> 000:c2000000c2220000c2222000c22222ccc22222ccc2222000c2220000c2000000 -->
+
+![On choisit la case #0, puis on dessine le sprite pixel par pixel : d'abord le blanc, ensuite le rouge.](img/sprite-dessin.gif)
 
 
 Placer le sprite sur l'écran.
@@ -43,12 +47,18 @@ Dessine ton sprite et utilise l'éditeur de code pour faire apparaître ton spri
 En lançant le jeu tu dois obtenir:
 <!-- illustration: a sprite drawn on screen, no transparency -->
 
+![Le sprite du joueur dans le jeu (agrandi à droite). Les pixels noirs autour du bonnet sont encore visibles.](img/sprite-ecran-sans-transparence.png)
+
 Transparence, ajoute l'index de la couleur transparente à spr
 `spr(id, x, y, key)`
 <!-- illustration: sprite editor's palette: highlight the color that should be used as the colorkey -->
 
+![Dans la palette, la couleur encadrée est le noir, la couleur numéro 0. C'est elle qui doit devenir transparente.](img/sprite-palette-transparence.png)
+
 Relance le jeu, tu dois obtenir:
 <!-- illustration: a sprite drawn on screen, with transparency -->
+
+![Le même sprite avec la transparence : il ne reste que le bonnet.](img/sprite-ecran-avec-transparence.png)
 
 
 ## Input
@@ -78,14 +88,18 @@ Utilise `x` et `y` dans la fonction `spr` à la place des valeur en dur.
 
 <!--illustration: animation of the end of this step. note les animations qui montre l'effet d'un input sur le jeu doivent avoir un overlay "manette" qui montrent les touches utilisée au moment exact où elle sont utilisée. --> 
 
+![Le joueur se déplace avec les flèches du clavier. La manette sous le jeu allume les touches au moment où elles sont appuyées.](img/input-deplacement.gif)
+
 
 ## Rester dans les limites de écran
 
 
 Si tu déplace trop ton sprite en jouant, celui peut quitter l'écran.
 
-L'écran sur TIC-80 fait X pixel par Y pixel. Le point (0,0) se situe en haut à gauche de l'écran.
+L'écran sur TIC-80 fait 240 pixels de large et 136 pixels de haut. Le point (0,0) se situe en haut à gauche de l'écran.
 <!-- illustration: Axis and screen boundaries -->
+
+![L'écran de TIC-80. Le point (0, 0) est en haut à gauche. x augmente vers la droite, y augmente vers le bas. Les pointillés montrent la position x et la position y du joueur.](img/ecran-axes.png)
 
 
 Mise en application:
@@ -95,6 +109,10 @@ Ces conditions doivent faire en sorte que:
 - La position du joueur peut varier que s'il ne rencontre pas un bord de l'écran <!-- note: détailler les 4 bords de l'écran -->
 
 <!-- illustration: 2 animations: avant et après la gestion des limites -->
+
+![Avant : sans conditions, le joueur sort de l'écran et disparaît.](img/limites-avant.gif)
+
+![Après : avec les conditions, le joueur s'arrête contre les bords de l'écran.](img/limites-apres.gif)
 
 
 # Bullet
@@ -135,6 +153,12 @@ C'est quoi un vecteur de vitesse ?
 mx = mx + vmx
 <!-- illustration: explication complète d'un vecteur de vitesse avec plusieurs image et animations -->
 
+![Au ralenti : à chaque image, le missile avance de la longueur de la flèche jaune. Cette flèche, c'est le vecteur vitesse vmx. Sa nouvelle position est mx + vmx.](img/vitesse-ralenti.gif)
+
+![Quatre missiles, quatre vitesses. De haut en bas : vmx = 0 (il ne bouge pas), vmx = 1, vmx = 3, et vmx = -2 (il va vers la gauche). Plus la flèche est longue, plus le missile va vite.](img/vitesse-comparaison.gif)
+
+![Une vitesse sur x (flèche orange) et une vitesse sur y (flèche bleue) : l'objet avance en diagonale (flèche jaune).](img/vitesse-diagonale.gif)
+
 Mise en application:
 
 Tu dois faire en sorte que:
@@ -150,6 +174,8 @@ Si le joueur appuie de manière répétitive sur le bouton de tir, le missile se
 
 <!-- illustration: montre que spammer le bouton de tir reset le missile à la position du joueur. Avec overlay -->
 
+![Le problème : à chaque appui sur le bouton de tir, le missile revient devant le joueur, même s'il est déjà parti.](img/tir-spam-avant.gif)
+
 
 Boite a outil:
 AND
@@ -164,6 +190,8 @@ Resultat intermédiaire:
 
 <!-- illustration: montre que spammer le bouton de tir ne reset plus le missile à la position du joueur. Avec overlay -->
 
+![Avec la nouvelle condition : le missile part une seule fois, les appuis suivants ne font plus rien.](img/tir-spam-apres.gif)
+
 Le problème maintnenant: le missile peut quitter l'écran et continuer sa course indéfiniment: on ne peut donc plus tirer qu'une seule fois.
 Ajouter une condition: si le missile dépasse le bord droit de l'écran: le remettre à sa position initiale et remettre son vecteur vitesse à 0.
 
@@ -172,6 +200,8 @@ La position initiale du missile se trouve sur l'écran de jeu. Il est toujours v
 Tu peux mettre la position initiale du missile en dehors de l'écran par exemple en: -10, -10
 
 <!-- illustration: montrer le missile en dehors de l'écran de jeu -->
+
+![Le missile est placé en (-10, -10), en dehors de l'écran. La zone sombre représente ce qui est hors de l'écran : le joueur ne voit pas le missile.](img/missile-hors-ecran.png)
 
 
 # Enemy
@@ -192,6 +222,8 @@ Dessine ton sprite..
 Place le temporairement à un endroit visible à l'écran avec la fonction `spr`.
 
 <!-- illustration: Le joueur et un enemy affiché à l'écran --> 
+
+![Le joueur et l'ennemi affichés en même temps à l'écran.](img/ennemi-ecran.png)
 
 
 ## Mouvement
@@ -219,6 +251,8 @@ A l'aide d'une condition: detecte si l'ennemi qui l'écran par le bord droit, da
 
 <!-- illustration: animation de l'ennemi qui traverse plusieurs fois l'écran de droite à gauche, la position horizontale est aléatoire à chaque passe -->
 
+![L'ennemi traverse l'écran de droite à gauche. À chaque nouveau passage, sa hauteur est choisie au hasard.](img/ennemi-mouvement.gif)
+
 # Collision
 
 - AABB
@@ -232,8 +266,16 @@ A l'aide d'une condition: detecte si l'ennemi qui l'écran par le bord droit, da
 Boite à outil:
 Collision AABB
     - Bounding box: <!--note / illustration: montrer les dimension d'un sprite -->
-    - Trouver la bounding box: <--note / illustration: position X d'un sprite + largeur et position Y d'un sprite + hauteur
+
+![Un sprite agrandi : il fait 8 pixels de large (flèche jaune) et 8 pixels de haut (flèche bleue). Le cadre blanc est sa boîte de collision.](img/collision-dimensions.png)
+    - Trouver la bounding box: <!--note / illustration: position X d'un sprite + largeur et position Y d'un sprite + hauteur -->
+
+![La boîte du sprite commence au point blanc (x, y). Sur l'axe horizontal, elle va de x à x + largeur (en jaune). Sur l'axe vertical, elle va de y à y + hauteur (en bleu).](img/collision-boite-position.png)
     - <!-- illustration: 2 sprites avec leur collision box visible, une image où il n'y a pas collision, une image où il y a collision -->
+
+![Pas de collision : les deux boîtes ne se touchent pas.](img/collision-non.png)
+
+![Collision : les deux boîtes se chevauchent (zone rayée).](img/collision-oui.png)
     
 
 Utilise une condition pour détecter la collision entre le joueur et l'ennemi.
@@ -262,6 +304,8 @@ Ajoute une variable `score` à ton code (sa valeur initiale est à 0).
 Au quand le missile du joueur touche l'ennemi: augmente le score de 100. 
 
 <!-- illustration: le joueur tire sur l'enemi, le missile et l'ennemi disparaisent, le score augemente de 100 points -->
+
+![Le missile touche l'ennemi : le missile et l'ennemi disparaissent et le score passe de 0 à 100.](img/collision-tir-score.gif)
 
 
 ## Bonus: Fonction check_collision
