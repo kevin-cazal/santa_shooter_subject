@@ -99,7 +99,7 @@ Si tu déplace trop ton sprite en jouant, celui peut quitter l'écran.
 L'écran sur TIC-80 fait 240 pixels de large et 136 pixels de haut. Le point (0,0) se situe en haut à gauche de l'écran.
 <!-- illustration: Axis and screen boundaries -->
 
-![L'écran de TIC-80. Le point (0, 0) est en haut à gauche. x augmente vers la droite, y augmente vers le bas. Les pointillés montrent la position x et la position y du joueur.](img/ecran-axes.png)
+![L'écran de TIC-80. Le point 0 est en haut à gauche. X augmente vers la droite, Y augmente vers le bas. Les pointillés montrent la position X et la position Y du joueur.](img/ecran-axes.png)
 
 
 Mise en application:
@@ -153,11 +153,11 @@ C'est quoi un vecteur de vitesse ?
 mx = mx + vmx
 <!-- illustration: explication complète d'un vecteur de vitesse avec plusieurs image et animations -->
 
-![Au ralenti : à chaque image, le missile avance de la longueur de la flèche jaune. Cette flèche, c'est le vecteur vitesse vmx. Sa nouvelle position est mx + vmx.](img/vitesse-ralenti.gif)
+![Au ralenti, avec un vecteur vitesse de +24 pour bien voir : à chaque image, la position du missile augmente de 24. Elle vaut 8, puis 32, puis 56, et ainsi de suite.](img/vitesse-ralenti.gif)
 
-![Quatre missiles, quatre vitesses. De haut en bas : vmx = 0 (il ne bouge pas), vmx = 1, vmx = 3, et vmx = -2 (il va vers la gauche). Plus la flèche est longue, plus le missile va vite.](img/vitesse-comparaison.gif)
+![Quatre missiles, avec leur vitesse écrite à gauche. Avec 0, le missile ne bouge pas. Avec -2, il va vers la gauche. Plus la flèche est longue, plus le missile va vite.](img/vitesse-comparaison.gif)
 
-![Une vitesse sur x (flèche orange) et une vitesse sur y (flèche bleue) : l'objet avance en diagonale (flèche jaune).](img/vitesse-diagonale.gif)
+![Une vitesse de +2 sur X (flèche orange) et de +1 sur Y (flèche bleue) : l'objet avance en diagonale (flèche jaune).](img/vitesse-diagonale.gif)
 
 Mise en application:
 
@@ -201,7 +201,7 @@ Tu peux mettre la position initiale du missile en dehors de l'écran par exemple
 
 <!-- illustration: montrer le missile en dehors de l'écran de jeu -->
 
-![Le missile est placé en (-10, -10), en dehors de l'écran. La zone sombre représente ce qui est hors de l'écran : le joueur ne voit pas le missile.](img/missile-hors-ecran.png)
+![Zoom sur le coin en haut à gauche de l'écran. Le missile est en (-10, -10), dans la zone sombre : il est en dehors de l'écran et le joueur ne le voit pas.](img/missile-hors-ecran.png)
 
 
 # Enemy
@@ -267,10 +267,10 @@ Boite à outil:
 Collision AABB
     - Bounding box: <!--note / illustration: montrer les dimension d'un sprite -->
 
-![Un sprite agrandi : il fait 8 pixels de large (flèche jaune) et 8 pixels de haut (flèche bleue). Le cadre blanc est sa boîte de collision.](img/collision-dimensions.png)
+![Un sprite agrandi : il fait 8 pixels de large et 8 pixels de haut. Le cadre blanc est sa boîte de collision.](img/collision-dimensions.png)
     - Trouver la bounding box: <!--note / illustration: position X d'un sprite + largeur et position Y d'un sprite + hauteur -->
 
-![La boîte du sprite commence au point blanc (x, y). Sur l'axe horizontal, elle va de x à x + largeur (en jaune). Sur l'axe vertical, elle va de y à y + hauteur (en bleu).](img/collision-boite-position.png)
+![La boîte du sprite va de X à X + largeur sur l'axe horizontal, et de Y à Y + hauteur sur l'axe vertical.](img/collision-boite-position.png)
     - <!-- illustration: 2 sprites avec leur collision box visible, une image où il n'y a pas collision, une image où il y a collision -->
 
 ![Pas de collision : les deux boîtes ne se touchent pas.](img/collision-non.png)
