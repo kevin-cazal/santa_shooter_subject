@@ -49,7 +49,7 @@ spr(17, 60, 100)   -- le même sprite, 40 pixels plus à droite
 
 Écris `spr` après `cls` : `cls` efface tout l'écran, donc un sprite dessiné avant disparaît.
 
-Doc : https://github.com/nesbox/TIC-80/wiki/spr
+Doc TIC-80 (en anglais) : [les paramètres de `spr`](https://github.com/nesbox/TIC-80/wiki/spr#parameters), [ce que fait `cls`](https://github.com/nesbox/TIC-80/wiki/cls#description)
 
 
 Mise en application:
@@ -70,6 +70,8 @@ spr(17, 20, 100, 1)
 ```
 
 Tous les pixels de la couleur 1 deviennent invisibles. Pour trouver le numéro d'une couleur, compte les cases de la palette en partant de 0 : la ligne du haut va de 0 à 7, la ligne du bas de 8 à 15.
+
+Doc TIC-80 (en anglais) : [le paramètre `colorkey` de `spr`](https://github.com/nesbox/TIC-80/wiki/spr#parameters)
 <!-- illustration: sprite editor's palette: highlight the color that should be used as the colorkey -->
 
 ![Dans la palette, la couleur encadrée est le noir, la couleur numéro 0. C'est elle qui doit devenir transparente.](img/sprite-palette-transparence.png)
@@ -99,6 +101,8 @@ print(vies)   --> 3
 
 Crée tes variables en haut du code, en dehors de `function TIC()`. Sinon, elles reprennent leur valeur de départ 60 fois par seconde.
 
+Doc Lua (en anglais) : [les variables](https://www.lua.org/manual/5.3/manual.html#3.2)
+
 **Incrémenter / décrémenter** : changer une variable à partir de sa valeur actuelle.
 
 ```lua
@@ -112,6 +116,8 @@ print(compteur)   --> 1
 
 Lua calcule d'abord ce qui est à droite du `=` (`compteur + 1`), puis range le résultat dans `compteur`.
 
+Doc Lua (en anglais) : [l'affectation avec `=`](https://www.lua.org/manual/5.3/manual.html#3.3.3), [les opérateurs `+` et `-`](https://www.lua.org/manual/5.3/manual.html#3.4.1)
+
 **`btn(numéro)`** : vrai tant que le bouton est appuyé.
 
 | Numéro | Touche du clavier |
@@ -123,7 +129,7 @@ Lua calcule d'abord ce qui est à droite du `=` (`compteur + 1`), puis range le 
 | 4 | Z |
 | 5 | X |
 
-Doc : https://github.com/nesbox/TIC-80/wiki/btn
+Doc TIC-80 (en anglais) : [les paramètres de `btn`](https://github.com/nesbox/TIC-80/wiki/btn#parameters)
 
 **`if`** : faire quelque chose seulement quand une condition est vraie.
 
@@ -136,6 +142,8 @@ end
 ```
 
 Avec `temperature = 20`, rien ne s'affiche. Chaque `if` se ferme avec un `end`.
+
+Doc Lua (en anglais) : [`if`](https://www.lua.org/manual/5.3/manual.html#3.3.4), [les comparaisons comme `>`](https://www.lua.org/manual/5.3/manual.html#3.4.4)
 
 Mise en application:
 
@@ -269,6 +277,8 @@ print(vies == 3)   --> false
 
 Attention : `=` range une valeur dans une variable, `==` compare deux valeurs. `if vies = 0 then` provoque une erreur.
 
+Doc Lua (en anglais) : [les comparaisons, dont `==`](https://www.lua.org/manual/5.3/manual.html#3.4.4)
+
 **`and`** : deux conditions qui doivent être vraies en même temps.
 
 Au cinéma, on entre si on a au moins 12 ans ET un billet :
@@ -283,7 +293,7 @@ print(age >= 12 and billet)   --> false
 
 Si une seule des deux conditions est fausse, le résultat est `false`.
 
-Doc : https://www.lua.org/manual/5.3/manual.html#3.4.4
+Doc Lua (en anglais) : [`and`, `or` et `not`](https://www.lua.org/manual/5.3/manual.html#3.4.5)
 
 
 Mise en application:
@@ -318,6 +328,9 @@ Tu peux mettre la position initiale du missile en dehors de l'écran par exemple
 
 
 Utilise l'éditeur de sprite pour déssiner un ennemi.
+<!-- illustration: in sprite editor draw this sprite (one tile) pixel by pixel -> 016:0055550005555550555555555525525555555555550000550505505000555500 -->
+
+![Depuis le jeu qui tourne : la touche Échap (à gauche de la manette) ouvre le menu de TIC-80, la flèche du bas descend jusqu'à OPEN STUDIO, le bouton A l'ouvre. On choisit ensuite une case libre et on dessine l'ennemi pixel par pixel : d'abord le vert, ensuite les deux yeux rouges.](img/ennemi-dessin.gif)
 
 
 Mise en application:
@@ -351,7 +364,7 @@ print(math.random(0, 20))   --> un nombre entre 0 et 20
 
 Chaque appel donne un nouveau nombre. Pour choisir `min` et `max`, demande-toi quelle est la plus petite et la plus grande valeur qui a du sens.
 
-Doc : https://www.lua.org/manual/5.3/manual.html#pdf-math.random
+Doc Lua (en anglais) : [`math.random`](https://www.lua.org/manual/5.3/manual.html#pdf-math.random)
 
 **Vecteur vitesse : de gauche à droite ou de droite à gauche** : le signe de la vitesse donne le sens.
 
@@ -441,6 +454,8 @@ print("BONJOUR", 10, 20)   -- le texte BONJOUR, en x = 10 et y = 20
 
 Écris `print` après `cls`, sinon le texte est effacé tout de suite.
 
+Doc TIC-80 (en anglais) : [les paramètres de `print`](https://github.com/nesbox/TIC-80/wiki/print#parameters)
+
 **`..`** : coller deux morceaux de texte.
 
 ```lua
@@ -448,7 +463,7 @@ vies = 3
 print("VIES: " .. vies)   --> VIES: 3
 ```
 
-Doc : https://github.com/nesbox/TIC-80/wiki/print
+Doc Lua (en anglais) : [la concaténation avec `..`](https://www.lua.org/manual/5.3/manual.html#3.4.6)
 
 **Incrémenter une variable** : tu l'as déjà fait pour déplacer le joueur. Pour ajouter 10 d'un coup :
 
@@ -457,6 +472,8 @@ pieces = 0
 pieces = pieces + 10
 print(pieces)   --> 10
 ```
+
+Doc Lua (en anglais) : [l'affectation avec `=`](https://www.lua.org/manual/5.3/manual.html#3.3.3)
 
 Mise en application: pour la collision entre l'enemi et le missile inspire-toi de l'étape précédente.
 Ajoute une variable `score` à ton code (sa valeur initiale est à 0).
