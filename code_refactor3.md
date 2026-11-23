@@ -12,6 +12,9 @@
 - Le sucre syntaxique : (deux points) permet d'appeler une fonction sans repeter self a chaque fois
 - Reference: https://www.lua.org/pil/16.html (juste le principe de base, pas besoin d'aller plus loin, on ne fait pas de vraies classes ni d'heritage)
 
+![Six variables éparpillées : x, y, player_speed, ex, ey, vex. Les trois du joueur se rangent dans une boîte player, avec des cases x, y, speed. player.x se lit : la case x de la boîte player. Puis les trois de l'ennemi forment une boîte enemy, avec les mêmes noms de cases.](img/refactor-tables.webp)
+<!-- ws:anim {src: img/refactor-tables.webm, chapters: img/refactor-tables.vtt} -->
+
 ## Joueur
 <!-- ws: {type: exercise, id: refactor-joueur} -->
 

@@ -42,6 +42,9 @@ Boite à outil:
 - Un objet proche parait plus gros, un objet éloigné parait plus petit. C'est la perspective.
 - Un objet proche parait plus rapide, un objet éloigné parait plus lent. C'est la parallaxe.
 
+![Un ciel d'étoiles de trois tailles. Toutes à la même vitesse, le ciel est plat. Puis les grosses étoiles, proches, vont plus vite que les petites, loin : on voit de la profondeur, sans 3D.](img/parallaxe-profondeur.webp)
+<!-- ws:anim {src: img/parallaxe-profondeur.webm, chapters: img/parallaxe-profondeur.vtt} -->
+
 Mise en application:
 
 Tu as des étoiles plus grosses que d'autres, celles qui sont plus grosses sont donc plus proches de toi, elles doivent donc se déplacer plus rapidement que les plus petites étoiles.
@@ -60,6 +63,9 @@ Pour avoir un effet de particule il nous faut:
 - Une entité emettrice (d'où proviènent les particules)
 - Une longevité (les particules disparaissent au bout d'un moment)
 - Une physique (comment les particules vont se déplacer)
+
+![Le missile touche l'ennemi. L'émetteur : huit particules naissent au même point, huit entrées dans la liste. La physique : chacune a sa vitesse et s'éloigne. La longévité : vie baisse de 1 à chaque image, à 0 la particule est retirée de la liste, qui se vide.](img/particules-trois-ingredients.webp)
+<!-- ws:anim {src: img/particules-trois-ingredients.webm, chapters: img/particules-trois-ingredients.vtt} -->
 
 
 Mise en application:

@@ -1,0 +1,14 @@
+WEBVTT
+
+00:00.000 --> 00:03.500
+à gauche : x vaut 0
+
+00:03.500 --> 00:06.500
+en haut : y vaut 0
+
+00:06.500 --> 00:13.416
+à droite : x n'est pas le bord droit du sprite
+
+00:13.416 --> 00:19.666
+en bas : y + 8 vaut 136
+

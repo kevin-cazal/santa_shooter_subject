@@ -14,6 +14,7 @@ Contenu d'atelier au format **convention 2.0**, prêt à être importé dans une
 | `visual_effects2.md` | document de l'atelier |
 | `code_refactor3.md` | document de l'atelier |
 | `gameplay4.md` | document de l'atelier |
+| `anim/` | les scènes [manim](https://www.manim.community/) qui produisent les animations `img/*.webp` et leurs vidéos à chapitres ; une scène par idée expliquée |
 
 Le texte est du Markdown normal, lisible tel quel sur GitHub. Tout ce dont la plateforme a besoin est porté par des commentaires HTML `<!-- ws: ... -->`, invisibles à la lecture. La structure de l'atelier est lue dans les titres : il n'y a pas de sommaire à tenir à jour.
 

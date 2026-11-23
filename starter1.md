@@ -9,6 +9,11 @@ et un score qui monte.
 - Environment
 - init -> loop: update, draw
 
+Un jeu, c'est une boucle. TIC-80 appelle la fonction `TIC` 60 fois par seconde. À chaque tour : mettre à jour les nombres, effacer l'écran, dessiner.
+
+![La boucle de jeu. La ligne x = 0 s'exécute une fois. Puis TIC tourne : x augmente, cls efface l'écran, spr dessine le joueur à la position x. De plus en plus vite : le joueur avance d'un pixel par image.](img/intro-boucle.webp)
+<!-- ws:anim {src: img/intro-boucle.webm, chapters: img/intro-boucle.vtt} -->
+
 # Mouvement joueur
 
 ## Sprite
@@ -167,6 +172,11 @@ L'écran sur TIC-80 fait 240 pixels de large et 136 pixels de haut. Le point (0,
 
 ![L'écran de TIC-80. Le point 0 est en haut à gauche. X augmente vers la droite, Y augmente vers le bas. Les pointillés montrent la position X et la position Y du joueur.](img/ecran-axes.png)
 
+Attention au bord droit et au bord bas : `x` et `y` sont le coin en haut à gauche du sprite, et un sprite fait 8 pixels de large et 8 de haut.
+
+![Les quatre bords. À gauche, x vaut 0. En haut, y vaut 0. À droite, avec x = 240 le sprite est déjà sorti : son bord droit est x + 8, il touche le bord quand x + 8 vaut 240. En bas, pareil avec y + 8 et 136.](img/limites-bords.webp)
+<!-- ws:anim {src: img/limites-bords.webm, chapters: img/limites-bords.vtt} -->
+
 
 Mise en application:
 
@@ -309,6 +319,9 @@ Resultat intermédiaire:
 Le problème maintnenant: le missile peut quitter l'écran et continuer sa course indéfiniment: on ne peut donc plus tirer qu'une seule fois.
 Ajouter une condition: si le missile dépasse le bord droit de l'écran: le remettre à sa position initiale et remettre son vecteur vitesse à 0.
 
+![La vie d'un missile. Au repos, hors de l'écran, vitesse 0. Appui sur Z : il prend la position du joueur et une vitesse de 3. Il avance à chaque image. Sorti par la droite, il revient au repos. Un seul missile, qui fait des tours.](img/tir-cycle.webp)
+<!-- ws:anim {src: img/tir-cycle.webm, chapters: img/tir-cycle.vtt} -->
+
 Petite modification esthétique (mais bien utile pour la suite):
 La position initiale du missile se trouve sur l'écran de jeu. Il est toujours visible même lorsqu'il n'est pas tiré.
 Tu peux mettre la position initiale du missile en dehors de l'écran par exemple en: -10, -10
@@ -425,6 +438,9 @@ Exemple : commence par une seule règle, au lieu d'un écran.
 Compare le début et la fin de chaque segment dans ces deux cas. Quelles comparaisons sont vraies dans le premier cas, et fausses dans le deuxième ?
 
 Deux boîtes se touchent quand elles se chevauchent sur l'axe X et aussi sur l'axe Y.
+
+![Sur l'axe X, le segment du joueur va de 10 à 18. L'ennemi de 15 à 23 : oui, ils se chevauchent entre 15 et 18. De 20 à 28 : non. Sur l'axe Y, la même question. Oui sur X mais non sur Y : pas de collision. Oui sur les deux axes : collision.](img/collision-deux-axes.webp)
+<!-- ws:anim {src: img/collision-deux-axes.webm, chapters: img/collision-deux-axes.vtt} -->
 
 
 Utilise une condition pour détecter la collision entre le joueur et l'ennemi.

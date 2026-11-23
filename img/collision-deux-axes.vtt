@@ -1,0 +1,14 @@
+WEBVTT
+
+00:00.000 --> 00:01.833
+deux boîtes : de x à x + 8, de y à y + 8
+
+00:01.833 --> 00:07.666
+sur l'axe X : les deux segments se chevauchent ?
+
+00:07.666 --> 00:12.082
+sur l'axe Y : la même question
+
+00:12.082 --> 00:21.412
+collision : oui sur X et oui sur Y
+
