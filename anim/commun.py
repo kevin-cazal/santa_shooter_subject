@@ -107,6 +107,19 @@ class Ecran:
     def sprite(self, nom, x, y, echelle=1):
         return sprite(nom, self.px, echelle, self.pos(x, y))
 
+    def sprite_clippe(self, nom, x, y, echelle=1):
+        """Comme `sprite`, mais les pixels hors de l'écran sont invisibles : le jeu
+        ne dessine rien au-delà des bords, et un missile au repos en (-10, -10)
+        ne se voit pas."""
+        g = self.sprite(nom, x, y, echelle)
+        g_, d_ = self.cadre.get_left()[0], self.cadre.get_right()[0]
+        h_, b_ = self.cadre.get_top()[1], self.cadre.get_bottom()[1]
+        for px in g:
+            cx, cy = px.get_center()[0], px.get_center()[1]
+            if cx < g_ or cx > d_ or cy > h_ or cy < b_:
+                px.set_opacity(0)
+        return g
+
     def boite(self, x, y, l=8, h=8, couleur=ALERTE, largeur=2):
         """Le rectangle de x à x + l et de y à y + h."""
         r = Rectangle(width=l * self.px, height=h * self.px, stroke_color=couleur, stroke_width=largeur, fill_opacity=0)
@@ -198,3 +211,59 @@ class Compteur(VGroup):
                 chiffre.move_to(place + DOWN * max(-1, min(1, ecart)) * self.fenetre.height)
                 visible = abs(ecart) < 0.999 and not (vide and d == 0)
                 chiffre.set_opacity(1 if visible else 0)
+
+
+class Boite:
+    """Une variable dessinée : une boîte avec son nom au-dessus et sa valeur dedans.
+    Ses trois morceaux s'ajoutent à la scène un par un (`poser`), pour que
+    `changer` puisse remplacer la valeur par un fondu sans toucher au reste."""
+
+    def __init__(self, nom, valeur, couleur=ALERTE, largeur=1.7, centre=ORIGIN):
+        self.couleur = couleur
+        self.cadre = RoundedRectangle(width=largeur, height=0.9, corner_radius=0.12, stroke_color=couleur,
+                                      stroke_width=3, fill_color=PANNEAU, fill_opacity=1).move_to(centre)
+        self.nom = code(nom, 24, couleur).next_to(self.cadre, UP, buff=0.12)
+        self.val = code(str(valeur), 30, BLANC).move_to(self.cadre)
+
+    def mobjects(self):
+        return [self.cadre, self.nom, self.val]
+
+    def poser(self, scene, anime=True, run_time=0.5):
+        if anime:
+            scene.play(FadeIn(self.cadre), FadeIn(self.nom), FadeIn(self.val), run_time=run_time)
+        else:
+            scene.add(self.cadre, self.nom, self.val)
+
+    def changer(self, scene, valeur, run_time=0.5):
+        nv = code(str(valeur), 30, BLANC).move_to(self.cadre)
+        scene.play(FadeTransform(self.val, nv), run_time=run_time)
+        self.val = nv
+
+    def effacer(self, scene, run_time=0.4):
+        scene.play(FadeOut(self.cadre), FadeOut(self.nom), FadeOut(self.val), run_time=run_time)
+
+
+class Console:
+    """Le terminal Lua du runtime : ce que `print` affiche, ligne après ligne."""
+
+    def __init__(self, scene, centre, largeur=4.6, hauteur=2.2, lignes=4):
+        self.scene, self.max = scene, lignes
+        self.cadre = Rectangle(width=largeur, height=hauteur, stroke_color=GRIS, stroke_width=2,
+                               fill_color="#101120", fill_opacity=1).move_to(centre)
+        self.titre = texte("terminal Lua", 16, DOUX).next_to(self.cadre.get_corner(UL), DR, buff=0.12)
+        self.lignes = []
+        scene.add(self.cadre, self.titre)
+
+    def ecrire(self, t, couleur=VERT, run_time=0.4):
+        l = code(t, 22, couleur)
+        if self.lignes:
+            l.next_to(self.lignes[-1], DOWN, aligned_edge=LEFT, buff=0.12)
+        else:
+            l.next_to(self.titre, DOWN, aligned_edge=LEFT, buff=0.18)
+        if len(self.lignes) >= self.max:
+            vieux = self.lignes.pop(0)
+            self.scene.play(FadeOut(vieux), *[m.animate.shift(UP * 0.42) for m in self.lignes], run_time=0.3)
+            l.shift(UP * 0.42)
+        self.lignes.append(l)
+        self.scene.play(FadeIn(l, shift=RIGHT * 0.2), run_time=run_time)
+        return l

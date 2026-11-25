@@ -23,7 +23,8 @@ Un fond noir et cinquante étoiles qui défilent : le joueur vole dans la nuit.
 > --> 1  2  3
 > ```
 >
-> <!-- animation: la boucle for avec un compteur à rouleaux : i passe de 1 à 3, une ligne s'affiche à chaque tour ; puis for i = 1, 50 : cinquante tours, cinquante étoiles -->
+> ![for i = 1, 3 do print(i) end : le compteur i passe de 1 à 3, une ligne s'affiche à chaque tour, puis la boucle s'arrête. for i = 1, 50 : cinquante tours, et à chaque tour une étoile de plus dans le ciel.](img/outil-for.webp)
+> <!-- ws:anim {src: img/outil-for.webm, chapters: img/outil-for.vtt} -->
 >
 > Doc Lua (en anglais) : [`for`](https://www.lua.org/manual/5.3/manual.html#3.3.5)
 
@@ -39,7 +40,8 @@ Un fond noir et cinquante étoiles qui défilent : le joueur vole dans la nuit.
 > end
 > ```
 >
-> <!-- animation: une liste qui se remplit : table.insert pose une carte {x, y} à la suite des autres ; #liste compte les cartes ; for i = 1, #liste passe sur chaque carte -->
+> ![points = {} : trois emplacements vides, numérotés. table.insert pose une carte {x, y} dans le premier emplacement libre, puis une deuxième. #points vaut 2, points[2].x vaut 50. for i = 1, #points : i vaut 1 puis 2, et points[i] est la carte numéro i.](img/outil-liste.webp)
+> <!-- ws:anim {src: img/outil-liste.webm, chapters: img/outil-liste.vtt} -->
 >
 > Doc Lua (en anglais) : [les tables](https://www.lua.org/manual/5.3/manual.html#3.4.9), [`table.insert`](https://www.lua.org/manual/5.3/manual.html#pdf-table.insert)
 

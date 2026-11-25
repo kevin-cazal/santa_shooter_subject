@@ -1,0 +1,11 @@
+WEBVTT
+
+00:00.000 --> 00:03.400
+vies = 3 : une boîte, un nom, une valeur
+
+00:03.400 --> 00:06.900
+print(vies) lit la boîte
+
+00:06.900 --> 00:16.100
+dans TIC() : refaite à chaque tour
+

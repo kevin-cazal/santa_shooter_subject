@@ -1,0 +1,14 @@
+WEBVTT
+
+00:00.000 --> 00:02.133
+une fonction : un calcul qu'on nomme
+
+00:02.133 --> 00:07.199
+double(4) : 4 entre, 8 sort
+
+00:07.199 --> 00:10.798
+double(10) : le même calcul, réutilisé
+
+00:10.798 --> 00:14.531
+dans le jeu : check_collision répond true ou false
+

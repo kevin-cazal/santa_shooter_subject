@@ -24,7 +24,8 @@ Beaucoup de variables globales : `x`, `y`, `mx`, `ex`... Plus tu ajoutes d'armes
 > print(chat.faim)   --> -1
 > ```
 >
-> <!-- animation: chat:manger() : la boîte chat entre dans la fonction sous le nom self ; self.faim est la case faim de cette boîte ; elle passe de 0 à -1 -->
+> ![chat est une table avec deux cases, nom et faim. function chat:manger() est une fonction de cette table. chat:manger() : la table entre dans la fonction sous le nom self, self.faim passe de 0 à -1, et chat ressort changée. print(chat.faim) affiche -1.](img/outil-self.webp)
+> <!-- ws:anim {src: img/outil-self.webm, chapters: img/outil-self.vtt} -->
 >
 > Référence (en anglais) : [Programming in Lua, chapitre 16](https://www.lua.org/pil/16.html). Juste le principe : pas de classes ni d'héritage ici.
 <!-- /ws:toolbox -->

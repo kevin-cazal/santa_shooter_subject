@@ -1,0 +1,14 @@
+WEBVTT
+
+00:00.000 --> 00:01.933
+chat : une table avec des cases
+
+00:01.933 --> 00:03.733
+function chat:manger() : une fonction dans la table
+
+00:03.733 --> 00:08.333
+chat:manger() : la table entre sous le nom self
+
+00:08.333 --> 00:13.000
+print(chat.faim) : -1, la table a changé
+

@@ -78,7 +78,8 @@ Le bonnet s'affiche. Maintenant, il bouge avec les flèches.
 > print(vies)   --> 3
 > ```
 >
-> <!-- animation: une variable stocke une valeur. La boîte « vies », 3 dedans, print la lit. Puis la même ligne dans TIC() : remise à 3 à chaque tour, la valeur ne bouge jamais. -->
+> ![vies = 3 : une boîte nommée vies, 3 dedans. print(vies) lit la boîte et affiche 3. La même ligne placée dans TIC() est refaite à chaque tour, et la valeur ne bouge jamais. Hors de TIC(), créée une fois, elle descend bien 2, 1, 0.](img/outil-variable.webp)
+> <!-- ws:anim {src: img/outil-variable.webm, chapters: img/outil-variable.vtt} -->
 >
 > Doc Lua (en anglais) : [les variables](https://www.lua.org/manual/5.3/manual.html#3.2)
 
@@ -90,7 +91,8 @@ Le bonnet s'affiche. Maintenant, il bouge avec les flèches.
 > compteur = compteur - 1   --> 0
 > ```
 >
-> <!-- animation: compteur = compteur + 1, trois tours : la valeur à droite est lue, on ajoute 1, le résultat est stocké à gauche. Compteur à rouleaux. -->
+> ![compteur = compteur + 1. À droite du =, Lua lit la valeur de la boîte, 0. Il calcule 0 + 1. À gauche, le résultat 1 est stocké dans la boîte, qui est un compteur à rouleaux. Encore et encore : 2, 3, 4. Dans le jeu, x = x + 1 à chaque image : le joueur avance.](img/outil-incrementer.webp)
+> <!-- ws:anim {src: img/outil-incrementer.webm, chapters: img/outil-incrementer.vtt} -->
 >
 > Doc Lua (en anglais) : [l'affectation](https://www.lua.org/manual/5.3/manual.html#3.3.3), [`+` et `-`](https://www.lua.org/manual/5.3/manual.html#3.4.1)
 
@@ -116,7 +118,8 @@ Le bonnet s'affiche. Maintenant, il bouge avec les flèches.
 > end
 > ```
 >
-> <!-- animation: if. La condition est vraie : le bloc s'exécute, « il fait chaud » s'affiche. temperature passe à 20 : Lua saute au end, rien ne s'affiche. -->
+> ![temperature = 35 : 35 > 30 est vrai, Lua entre dans le bloc et print affiche il fait chaud. Avec 20 : faux, Lua saute au end, rien ne s'affiche. Dans le jeu, la condition est un bouton : appuyé, le joueur avance ; relâché, rien.](img/outil-if.webp)
+> <!-- ws:anim {src: img/outil-if.webm, chapters: img/outil-if.vtt} -->
 >
 > Doc Lua (en anglais) : [`if`](https://www.lua.org/manual/5.3/manual.html#3.3.4), [les comparaisons](https://www.lua.org/manual/5.3/manual.html#3.4.4)
 <!-- /ws:toolbox -->
@@ -309,7 +312,8 @@ L'ennemi avance tout seul vers la gauche. Sorti, il repart de la droite, à une 
 > print(de)   --> 4 (ou 1, 2, 3, 5, 6 : comme un dé)
 > ```
 >
-> <!-- animation: math.random(1, 6) appelé six fois : à chaque appel un dé tombe sur une face différente ; puis math.random(0, 136) : une hauteur sur l'écran, différente à chaque fois -->
+> ![de = math.random(1, 6), six fois : un dé tombe sur 4, 1, 6, 3, 6, 2. Puis ey = math.random(0, 136) : l'ennemi apparaît à droite de l'écran à une hauteur différente à chaque appel.](img/outil-random.webp)
+> <!-- ws:anim {src: img/outil-random.webm, chapters: img/outil-random.vtt} -->
 >
 > Doc Lua (en anglais) : [`math.random`](https://www.lua.org/manual/5.3/manual.html#pdf-math.random)
 
@@ -418,7 +422,8 @@ Tes deux tests font le même calcul avec des variables différentes. Un code éc
 > print(double(4))   --> 8
 > ```
 >
-> <!-- animation: une fonction reçoit une valeur, la transforme, et la renvoie : double(4) → 8, double(10) → 20. Le même calcul, appelé deux fois. -->
+> ![function double(n) : une machine nommée double. print(double(4)) : 4 entre et devient n, return renvoie n * 2, 8 s'affiche. double(10) : le même calcul, 20. Dans le jeu, deux boîtes entrent dans check_collision et true ou false ressort.](img/outil-fonction.webp)
+> <!-- ws:anim {src: img/outil-fonction.webm, chapters: img/outil-fonction.vtt} -->
 >
 > Doc Lua (en anglais) : [les fonctions](https://www.lua.org/manual/5.3/manual.html#3.4.11)
 <!-- /ws:toolbox -->
