@@ -40,7 +40,7 @@ Un fond noir et cinquante étoiles qui défilent : le joueur vole dans la nuit.
 > end
 > ```
 >
-> ![points = {} : trois emplacements vides, numérotés. table.insert pose une carte {x, y} dans le premier emplacement libre, puis une deuxième. #points vaut 2, points[2].x vaut 50. for i = 1, #points : i vaut 1 puis 2, et points[i] est la carte numéro i.](img/outil-liste.webp)
+> ![points = {} : trois emplacements vides, numérotés. table.insert pose une carte {x, y} dans le premier emplacement libre, puis une deuxième. #points vaut 2, et la case x de la carte 2 vaut 50. for i = 1, #points : i vaut 1 puis 2, et la carte numéro i est lue à chaque tour.](img/outil-liste.webp)
 > <!-- ws:anim {src: img/outil-liste.webm, chapters: img/outil-liste.vtt} -->
 >
 > Doc Lua (en anglais) : [les tables](https://www.lua.org/manual/5.3/manual.html#3.4.9), [`table.insert`](https://www.lua.org/manual/5.3/manual.html#pdf-table.insert)
