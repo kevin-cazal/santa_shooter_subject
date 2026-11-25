@@ -11,7 +11,7 @@ JX, JY = 24, 60
 class LeScore(Scene):
     def construct(self):
         ecran = Ecran(px=0.03, centre=UP * 0.6)
-        mx = ValueTracker(-10)
+        mx = ValueTracker(-24)
         ex, ey = ValueTracker(250), ValueTracker(60)
         score = ValueTracker(0)
         j = ecran.sprite("joueur", JX, JY, 2)
@@ -38,7 +38,7 @@ class LeScore(Scene):
                 flash = Rectangle(width=16 * ecran.px, height=16 * ecran.px, stroke_color=ORANGE, stroke_width=6).move_to(ecran.pos(cible + 8, h + 8))
                 self.play(FadeIn(flash), run_time=0.1)
                 self.play(flash.animate.scale(1.8).set_stroke(opacity=0), score.animate.set_value(100), run_time=0.5)
-                mx.set_value(-10); ex.set_value(250)
+                mx.set_value(-24); ex.set_value(250)
             else:
                 # Avec ey = 90, le missile passe en dessous : il rate, le score ne bouge pas.
                 self.play(mx.animate.set_value(250), ex.animate.set_value(-20), run_time=1.2, rate_func=linear)

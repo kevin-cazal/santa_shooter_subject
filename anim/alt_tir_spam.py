@@ -12,7 +12,7 @@ JX, JY = 24, 60
 class LeTirSpam(Scene):
     def construct(self):
         ecran = Ecran(px=0.03, centre=UP * 0.9)
-        mx = ValueTracker(-10)
+        mx = ValueTracker(-24)
         j = ecran.sprite("joueur", JX, JY, 2)
         m = always_redraw(lambda: ecran.sprite_clippe("missile", int(mx.get_value()), JY + 6, 2))
         k = manette("Z").move_to(DOWN * 2.3)
@@ -34,7 +34,7 @@ class LeTirSpam(Scene):
 
         self.next_section("après : le missile part une seule fois")
         self.play(FadeOut(p), run_time=0.2)
-        mx.set_value(-10)
+        mx.set_value(-24)
         p = phrase("après : le missile part une seule fois, les appuis suivants ne font plus rien")
         self.play(FadeIn(p), run_time=0.3)
         mx.set_value(JX + 16)
