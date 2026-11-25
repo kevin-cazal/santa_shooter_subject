@@ -2,7 +2,7 @@
 # une table par objet du jeu, une boîte avec des cases nommées. player.x se lit
 # « la case x de la boîte player ». Les fonctions viennent après, dans le sujet.
 #
-#   capture.py anim anim/tables.py LesTables -o img/refactor-tables.webp
+#   capture.py anim anim/tables.py LesTables -o img/refactor-tables.webp --fps 15
 from manim import *
 from commun import *
 

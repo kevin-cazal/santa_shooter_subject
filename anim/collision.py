@@ -3,7 +3,7 @@
 # boîte à outils (10 à 18, 15 à 23, 20 à 28). Les comparaisons restent à
 # trouver : on montre les segments, pas la condition.
 #
-#   capture.py anim anim/collision.py LaCollision -o img/collision-deux-axes.webp
+#   capture.py anim anim/collision.py LaCollision -o img/collision-deux-axes.webp --fps 30
 from manim import *
 from commun import *
 

@@ -1,69 +1,86 @@
 # Gameplay
 <!-- ws: {type: chapter, topology: free} -->
 
-- Ce chapitre est une liste de défis
-- Choisir un ou plusieurs défis dans la liste, dans l'ordre de son choix
-- Chaque défi est indépendant des autres, pas besoin d'avoir fait les autres pour en commencer un
+Une liste de défis. Choisis-en un ou plusieurs, dans l'ordre que tu veux : chacun est indépendant des autres.
 
 ## Patterns d'ennemi
 
-### Sinusoide
+### Sinusoïde
 <!-- ws: {type: exercise, id: gameplay-sinusoide} -->
 
-- L'ennemi se déplace vers la gauche en suivant une onde sinusoïdale sur l'axe Y
+**Ton objectif :** l'ennemi avance vers la gauche en ondulant de haut en bas. `math.sin` et un compteur d'images sont tes outils.
+
+**C'est réussi si :** des vagues régulières, sans jamais sortir par le haut ou le bas.
 
 ### Vagues
 <!-- ws: {type: exercise, id: gameplay-vagues} -->
 
-- Plusieurs ennemis apparaissent en même temps, en groupe
+**Ton objectif :** plusieurs ennemis apparaissent en groupe, dans une liste, comme tes étoiles. La vague suivante arrive quand la première est passée ou détruite.
+
+**C'est réussi si :** les collisions marchent avec chaque ennemi de la vague.
 
 ### Boss
 <!-- ws: {type: exercise, id: gameplay-boss} -->
 
-- Un ennemi plus gros, avec plus de vie, qui apparaît de temps en temps
+**Ton objectif :** un ennemi plus gros, qui encaisse plusieurs missiles, et qui apparaît de temps en temps.
+
+**C'est réussi si :** on voit le boss encaisser, et sa destruction rapporte plus.
 
 ## Armes
 
 ### Double tir
 <!-- ws: {type: exercise, id: gameplay-double-tir} -->
 
-- Le joueur tire deux balles en même temps, par exemple une au dessus et une en dessous
+**Ton objectif :** deux missiles au même appui, un au-dessus et un en dessous.
+
+**C'est réussi si :** chaque missile touche séparément.
 
 ### Triple tir
 <!-- ws: {type: exercise, id: gameplay-triple-tir} -->
 
-- Le joueur tire trois balles en même temps, avec un angle différent pour chacune
+**Ton objectif :** trois missiles en éventail : un tout droit, un qui monte, un qui descend.
+
+**C'est réussi si :** l'éventail s'ouvre en avançant.
 
 ### Tir plus rapide
 <!-- ws: {type: exercise, id: gameplay-tir-rapide} -->
 
-- Réduire le temps d'attente entre deux tirs
+**Ton objectif :** moins d'attente entre deux tirs, réglée par un compteur d'images.
+
+**C'est réussi si :** un seul nombre change la cadence.
 
 ### Laser
 <!-- ws: {type: exercise, id: gameplay-laser} -->
 
-- Une arme qui touche tout ce qui est sur sa trajectoire, sans balle qui se déplace
+**Ton objectif :** bouton enfoncé, une ligne part du joueur vers la droite et touche tout ennemi qu'elle croise. Rien ne se déplace.
+
+**C'est réussi si :** le laser se voit, et touche sans délai.
 
 ### Homing missile
 <!-- ws: {type: exercise, id: gameplay-homing-missile} -->
 
-- Une arme du type missile, qui se dirige tout seul vers l'ennemi le plus proche au lieu d'aller tout droit
+**Ton objectif :** à chaque image, la vitesse du missile se corrige vers l'ennemi le plus proche.
+
+**C'est réussi si :** le missile tourne pour suivre un ennemi qui change de hauteur.
 
 ## Équilibrage
 
 ### Munitions
 <!-- ws: {type: exercise, id: gameplay-munitions} -->
 
-- Limiter le nombre de tirs disponibles, avec un rechargement dans le temps
+**Ton objectif :** un nombre de tirs affiché, qui baisse à chaque tir et remonte avec le temps.
+
+**C'est réussi si :** à zéro, le bouton ne fait rien, puis refonctionne.
 
 ### Difficulté
 <!-- ws: {type: exercise, id: gameplay-difficulte} -->
 
-- Faire augmenter la difficulté au fil du temps, par exemple la vitesse ou le nombre d'ennemis
+**Ton objectif :** un réglage qui grandit avec le temps de jeu : la vitesse ou le nombre des ennemis.
+
+**C'est réussi si :** la partie est visiblement plus dure après une minute.
 
 ## Fin de l'atelier
 
-Tu décides quand cette partie est finie : valide cette étape quand tu as fait les défis qui
-t'intéressaient.
+Tu décides quand cette partie est finie : valide cette étape quand tu as fait les défis qui t'intéressaient.
 
 Merci d'avoir suivi l'atelier. Ton avis nous aide à l'améliorer pour les prochains.

@@ -3,7 +3,7 @@
 # du joueur et une vitesse ; il avance ; sorti à droite, il revient au repos.
 # La condition du tir reste à écrire : on montre les états, pas le if.
 #
-#   capture.py anim anim/tir.py LeTir -o img/tir-cycle.webp
+#   capture.py anim anim/tir.py LeTir -o img/tir-cycle.webp --fps 30
 from manim import *
 from commun import *
 

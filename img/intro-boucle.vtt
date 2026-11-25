@@ -1,14 +1,14 @@
 WEBVTT
 
-00:00.000 --> 00:02.900
+00:00.000 --> 00:03.000
 avant TIC : les variables, une seule fois
 
-00:02.900 --> 00:05.200
+00:03.000 --> 00:05.400
 update : les nombres changent
 
-00:05.200 --> 00:09.500
+00:05.400 --> 00:09.800
 draw : cls efface, spr dessine
 
-00:09.500 --> 00:19.300
+00:09.800 --> 00:18.897
 et on recommence : 60 fois par seconde
 

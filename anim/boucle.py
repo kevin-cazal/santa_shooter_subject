@@ -3,7 +3,7 @@
 # l'écran, dessiner. Le mouvement, c'est des images qui se suivent.
 # Pas de btn ici : c'est la boucle qu'on montre, pas l'étape Input.
 #
-#   capture.py anim anim/boucle.py LaBoucleDeJeu -o img/intro-boucle.webp
+#   capture.py anim anim/boucle.py LaBoucleDeJeu -o img/intro-boucle.webp --fps 30
 from manim import *
 from commun import *
 
@@ -27,10 +27,12 @@ class LaBoucleDeJeu(Scene):
             # un glissement, pas un morphing qui raye le code à mi-chemin.
             r = Rectangle(width=large, height=haut, stroke_color=couleur, stroke_width=3, fill_opacity=0)
             return r.move_to(ligne.get_left() + RIGHT * large / 2 + LEFT * 0.1).set_y(ligne.get_y())
-        ecran = Ecran(px=0.028, centre=RIGHT * 3.4 + UP * 0.6)
+        ecran = Ecran(px=0.028, centre=RIGHT * 3.4 + UP * 1.4)
         x = ValueTracker(0)
-        valeur = always_redraw(lambda: etiquette(f"x = {int(x.get_value())}", ALERTE, 26)
-                               .next_to(ecran.cadre, DOWN, buff=0.3))
+        # Le compteur à rouleaux : la façon convenue de montrer une boucle qui tourne.
+        valeur = Compteur("x", x.get_value, chiffres=3).scale(0.75)
+        # Assez bas pour que ses caches, couleur du fond, ne coupent pas le bord de l'écran.
+        valeur.shift(ecran.cadre.get_bottom() + DOWN * 1.6 - valeur.fenetre.get_center())
         self.add(ecran.cadre, prog)
 
         # 1. Avant TIC : une seule fois.
@@ -41,7 +43,8 @@ class LaBoucleDeJeu(Scene):
             s.set_y(prog[k].get_y())
             return Wait(0)   # le saut est immédiat ; on garde la forme d'une animation
 
-        self.play(Create(s), FadeIn(valeur), run_time=0.6)
+        self.add(valeur)
+        self.play(Create(s), run_time=0.6)
         p = phrase("cette ligne s'exécute une seule fois, au lancement")
         self.play(FadeIn(p))
         self.wait(1.4)

@@ -2,7 +2,7 @@
 # même vitesse, le ciel est plat. Les grosses (proches) plus vite que les
 # petites (loin) : de la profondeur, sans 3D. Le coefficient reste à écrire.
 #
-#   capture.py anim anim/parallaxe.py LaParallaxe -o img/parallaxe-profondeur.webp
+#   capture.py anim anim/parallaxe.py LaParallaxe -o img/parallaxe-profondeur.webp --fps 30
 import random
 from manim import *
 from commun import *

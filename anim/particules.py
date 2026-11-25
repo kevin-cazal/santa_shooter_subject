@@ -2,7 +2,7 @@
 # toutes au même point), une physique (chacune a sa vitesse), une longévité
 # (vie baisse, à 0 on la retire de la liste). La liste grandit et se vide.
 #
-#   capture.py anim anim/particules.py LesParticules -o img/particules-trois-ingredients.webp
+#   capture.py anim anim/particules.py LesParticules -o img/particules-trois-ingredients.webp --fps 30
 import random
 from manim import *
 from commun import *

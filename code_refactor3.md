@@ -1,62 +1,103 @@
 # Refactor du code
 
-- Le code actuel utilise beaucoup de variables globales (x, y, bullet_x, enemy_x, etc)
-- Plus on ajoute de fonctionnalites (armes, vagues d'ennemis, boss), plus c'est difficile a suivre
-- Objectif: regrouper les variables et le comportement de chaque objet du jeu dans une seule table
+Beaucoup de variables globales : `x`, `y`, `mx`, `ex`... Plus tu ajoutes d'armes et d'ennemis, plus c'est dur à suivre. Ici, chaque objet du jeu rassemble ses valeurs et ses fonctions dans une table. Le jeu ne change pas : il se range.
 
 ## Notion d'objet en Lua
 <!-- ws: {type: prose} -->
 
-- Une table peut contenir des valeurs ET des fonctions
-- Une fonction stockee dans une table peut utiliser self pour acceder aux autres valeurs de la table
-- Le sucre syntaxique : (deux points) permet d'appeler une fonction sans repeter self a chaque fois
-- Reference: https://www.lua.org/pil/16.html (juste le principe de base, pas besoin d'aller plus loin, on ne fait pas de vraies classes ni d'heritage)
+<!-- ws:toolbox -->
+### Boîte à outils
 
-![Six variables éparpillées : x, y, player_speed, ex, ey, vex. Les trois du joueur se rangent dans une boîte player, avec des cases x, y, speed. player.x se lit : la case x de la boîte player. Puis les trois de l'ennemi forment une boîte enemy, avec les mêmes noms de cases.](img/refactor-tables.webp)
-<!-- ws:anim {src: img/refactor-tables.webm, chapters: img/refactor-tables.vtt} -->
+> 🧰 **Une table avec des cases nommées** : `player.x` se lit « la case `x` de la boîte `player` ».
+>
+> ![Six variables éparpillées : x, y, player_speed, ex, ey, vex. Les trois du joueur se rangent dans une boîte player, avec des cases x, y, speed. player.x se lit : la case x de la boîte player. Puis les trois de l'ennemi forment une boîte enemy, avec les mêmes noms de cases.](img/refactor-tables.webp)
+> <!-- ws:anim {src: img/refactor-tables.webm, chapters: img/refactor-tables.vtt} -->
+
+> 🧰 **Une fonction dans une table, et `self`** : écrite avec `:`, la fonction reçoit la table sous le nom `self`.
+>
+> ```lua
+> chat = {nom = "Félix", faim = 0}
+> function chat:manger()
+>   self.faim = self.faim - 1
+> end
+> chat:manger()
+> print(chat.faim)   --> -1
+> ```
+>
+> <!-- animation: chat:manger() : la boîte chat entre dans la fonction sous le nom self ; self.faim est la case faim de cette boîte ; elle passe de 0 à -1 -->
+>
+> Référence (en anglais) : [Programming in Lua, chapitre 16](https://www.lua.org/pil/16.html). Juste le principe : pas de classes ni d'héritage ici.
+<!-- /ws:toolbox -->
 
 ## Joueur
 <!-- ws: {type: exercise, id: refactor-joueur} -->
+<!-- étape de modelage : la forme de la table et des fonctions est donnée volontairement -->
 
-- Remplacer x, y, player_speed par une table player = {x=.., y=.., speed=..}
-- Deplacer le code de mouvement dans une fonction player:update()
-- Deplacer le code d'affichage dans une fonction player:draw()
-- Appeler player:update() et player:draw() dans TIC()
+Le premier objet à ranger. Sa forme t'est donnée ; à toi d'y déplacer le code.
+
+```lua
+player = {x = 0, y = 68, speed = 1.5}
+
+function player:update()
+  -- le mouvement et les limites
+end
+
+function player:draw()
+  -- l'affichage
+end
+```
+
+### Mise en application
+<!-- ws:doit -->
+
+**Ton objectif :** `TIC()` appelle `player:update()` puis `player:draw()`, et plus rien d'autre pour le joueur.
+
+**C'est réussi si :** le bonnet bouge et s'arrête aux bords exactement comme avant.
 
 ## Bullet
 <!-- ws: {type: exercise, id: refactor-bullet} -->
 
-- Meme principe: une table bullet = {x=.., y=.., speed=..}
-- Fonction bullet:update() pour le deplacement et le reset hors ecran
-- Fonction bullet:draw()
+### Mise en application
+<!-- ws:doit -->
+
+**Ton objectif :** une table `bullet` avec `x`, `y`, `speed`, `bullet:update()` pour le vol et le retour au repos, `bullet:draw()`.
+
+**C'est réussi si :** plus de `mx`, `my`, `vmx`, et le tir marche comme avant.
 
 ## Enemy
 <!-- ws: {type: exercise, id: refactor-enemy} -->
 
-- Meme principe: une table enemy = {x=.., y=.., speed=..}
-- Fonction enemy:update()
-- Fonction enemy:draw()
+### Mise en application
+<!-- ws:doit -->
+
+**Ton objectif :** une table `enemy`, `enemy:update()` pour le mouvement et la réapparition, `enemy:draw()`.
+
+**C'est réussi si :** plus de `ex`, `ey`, `vex`, `vey`, et l'ennemi traverse comme avant.
 
 ## Collision
 <!-- ws: {type: exercise, id: refactor-collision} -->
 
-- Garder une fonction a part pour les collisions, par exemple check_collisions()
-- Cette fonction regarde player, bullet et enemy et applique les consequences (score, reset position, particules)
+### Mise en application
+<!-- ws:doit -->
 
-## Etoiles, particules, sol
+**Ton objectif :** une fonction `check_collisions()` qui regarde `player`, `bullet` et `enemy`, et applique les conséquences : score, retour au départ, particules.
+
+**C'est réussi si :** `TIC()` tient en une dizaine de lignes et se lit comme une liste.
+
+## Étoiles, particules, sol
 <!-- ws: {type: exercise, id: refactor-etoiles} -->
 
-- Ces elements sont deja des tables dans une liste, pas besoin de gros changement
-- Optionnel: ajouter des fonctions update/draw sur chaque etoile ou particule
+Déjà des tables dans une liste : pas de gros changement.
+
+### Mise en application
+<!-- ws:doit -->
+
+**Ton objectif :** le code des étoiles et des particules regroupé au même endroit. En option, `update` et `draw` sur chacune.
+
+**C'est réussi si :** tu retrouves chaque élément du jeu en lisant les noms des tables.
 
 ## Fin de la partie 3
 
 Ton code est rangé. Chaque objet du jeu a sa table, avec ses valeurs et ses fonctions.
 
-Dans la partie suivante, tu choisis toi-même les défis que tu veux ajouter au jeu.
-
-## Pourquoi ce refactor avant la partie Gameplay
-
-- La partie Gameplay ajoute plusieurs ennemis et plusieurs balles (double tir, triple tir, vagues, boss)
-- Avec des tables, ce sera plus facile de faire une liste de plusieurs ennemis ou balles
-- Sans ce refactor, le code deviendrait vite tres long avec des variables comme enemy2_x, enemy3_x, etc
+La partie Gameplay ajoute plusieurs ennemis et plusieurs missiles. Avec des tables, une liste d'ennemis s'écrit comme ta liste d'étoiles.

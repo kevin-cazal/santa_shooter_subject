@@ -1,24 +1,25 @@
 # Santa Shooter
 
-**Bienvenue !** Tu vas programmer ton propre jeu de tir, en Lua, avec TIC-80.
+## Un jeu de tir à toi, dans ton navigateur
 
-L'atelier se passe **entièrement dans le navigateur**. L'éditeur TIC-80 est affiché à côté de ces
-instructions : tu écris ton code à gauche, tu lances le jeu à droite.
+Des ennemis qui déboulent par la droite, un score qui grimpe. Tu vas le programmer toi-même, en Lua, dans TIC-80 : une petite console de jeu qui tient dans un onglet.
 
-Il se déroule en quatre parties, dans cet ordre :
+Dans un quart d'heure, ton Père Noël bouge déjà. À la fin, le jeu a ton ciel, tes effets et tes armes.
 
-- **Le jeu de base.** Un joueur qui bouge, qui tire, des ennemis qui arrivent, un score.
-- **Effets visuels.** Un ciel étoilé, du parallaxe, des particules, et des bonus au choix.
-- **Refactor du code.** Ranger les variables du jeu dans des tables, avant que le code ne devienne
-  trop long.
-- **Gameplay.** Une liste de défis indépendants : tu choisis ceux qui t'intéressent, dans l'ordre
-  que tu veux.
+<!-- illustration: GIF de 15 s du jeu fini : ciel étoilé en parallaxe, tir, explosion en particules, score qui monte. La démo qui donne envie, rien d'autre. -->
 
-Chaque partie se débloque quand la précédente est terminée.
+## Les quatre parties
 
-## Aide
+1. **Le jeu de base.** Un joueur qui bouge et qui tire, des ennemis, un score.
+2. **Effets visuels.** Un ciel étoilé, du parallaxe, des particules, des bonus au choix.
+3. **Refactor du code.** Ranger les variables du jeu dans des tables.
+4. **Gameplay.** Des défis indépendants, dans l'ordre que tu veux.
 
-Ton code est sauvegardé automatiquement dans ton navigateur.
+Chaque partie se débloque quand la précédente est validée.
 
-Quand tu es bloqué, relis l'étape en cours et regarde les indices s'il y en a. Demande à
-l'encadrant plutôt que de rester bloqué longtemps.
+## Comment ça marche
+
+- Tout se passe dans le navigateur. Ton code est sauvegardé automatiquement.
+- **Ouvrir TIC-80** affiche la console à côté des instructions : le jeu à gauche, ton code à droite.
+- Chaque étape : ses outils, un objectif, l'image à obtenir. L'encadrant valide avec un code.
+- Bloqué ? Relis l'étape, puis demande à l'encadrant.

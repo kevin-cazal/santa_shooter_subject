@@ -2,7 +2,7 @@
 # piège du bord droit et du bord bas — x est le coin gauche du sprite, pas son
 # bord droit. Les conditions restent à écrire : on montre les nombres, pas le if.
 #
-#   capture.py anim anim/limites.py LesLimites -o img/limites-bords.webp
+#   capture.py anim anim/limites.py LesLimites -o img/limites-bords.webp --fps 30
 from manim import *
 from commun import *
 

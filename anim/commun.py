@@ -139,3 +139,62 @@ def manette(touche, allumee=False, taille=0.6):
 def etiquette(t, couleur=ALERTE, taille=22):
     """Une valeur affichée près d'un objet : `x = 12`."""
     return code(t, taille, couleur)
+
+
+def roule(cran):
+    """Une valeur de compteur qui reste sur son chiffre au début de chaque cran,
+    puis roule vers le suivant. `cran` est un nombre à virgule : 2.5, c'est le
+    milieu du troisième cran."""
+    k = int(cran + 1e-9)
+    u = min(1, max(0, (cran - k - 0.6) / 0.4))
+    return k + u * u * (3 - 2 * u)
+
+
+class Compteur(VGroup):
+    """Un compteur à rouleaux, comme un compteur kilométrique : un rouleau de
+    chiffres de 0 à 9 par chiffre, dans une fenêtre. Quand les unités passent
+    de 9 à 0, les dizaines roulent en même temps. Un zéro à gauche reste vide.
+    C'est la façon convenue de montrer une boucle : jamais une flèche qui tourne.
+
+    `valeur()` est lue à chaque image ; entre deux entiers, les rouleaux sont
+    entre deux chiffres. `nom` au-dessus, `legende` (des lignes) en dessous."""
+
+    HAUT = 1.25
+    PAS = 0.78
+
+    def __init__(self, nom, valeur, chiffres=1, couleur=ALERTE, legende=()):
+        super().__init__()
+        self.valeur, self.n = valeur, chiffres
+        large = 0.37 + self.PAS * chiffres
+        self.fenetre = RoundedRectangle(width=large, height=self.HAUT, corner_radius=0.12, stroke_color=couleur,
+                                        stroke_width=3, fill_color=PANNEAU, fill_opacity=1)
+        c = self.fenetre.get_center()
+        self.rouleaux = VGroup(*[VGroup(*[Text(str(d), font="DejaVu Sans Mono", font_size=56, color=couleur) for d in range(10)])
+                                 for _ in range(chiffres)])
+        # Deux caches de la couleur du fond : on ne voit les rouleaux que dans la fenêtre.
+        caches = VGroup(*[Rectangle(width=large + 0.4, height=self.HAUT, fill_color=FOND, fill_opacity=1, stroke_width=0)
+                          .next_to(self.fenetre, sens, buff=0) for sens in (UP, DOWN)])
+        bord = self.fenetre.copy().set_fill(opacity=0)
+        traits = VGroup(*[Line(c + RIGHT * x + UP * self.HAUT / 2, c + RIGHT * x + DOWN * self.HAUT / 2, stroke_color=couleur,
+                               stroke_width=1.5, stroke_opacity=0.35)
+                          for x in [self.PAS * ((chiffres - 1) / 2 - i - 0.5) for i in range(chiffres - 1)]])
+        self.nom = code(nom, 30, couleur).next_to(self.fenetre, UP, buff=0.25)
+        self.legende = VGroup(*[texte(l, 20, DOUX) for l in legende]).arrange(DOWN, buff=0.1).next_to(self.fenetre, DOWN, buff=0.25)
+        self.add(self.fenetre, self.rouleaux, caches, bord, traits, self.nom, self.legende)
+        self.rouleaux.add_updater(self.rouler)
+        self.rouler(self.rouleaux)
+
+    def rouler(self, m):
+        v = max(0.0, self.valeur())
+        echelle = self.fenetre.height / self.HAUT      # le compteur a pu être agrandi
+        for i, rouleau in enumerate(m):
+            p = 10 ** i
+            # Le rouleau i avance d'un chiffre quand tous ceux de droite passent de 9 à 0.
+            r = math.floor(v / p) + max(0.0, (v % p) - (p - 1)) if i else v
+            place = self.fenetre.get_center() + RIGHT * self.PAS * echelle * ((self.n - 1) / 2 - i)
+            vide = i > 0 and v < p          # le zéro à gauche : rien
+            for d, chiffre in enumerate(rouleau):
+                ecart = (d - r + 5) % 10 - 5            # entre -5 et 5 : 0 au milieu de la fenêtre
+                chiffre.move_to(place + DOWN * max(-1, min(1, ecart)) * self.fenetre.height)
+                visible = abs(ecart) < 0.999 and not (vide and d == 0)
+                chiffre.set_opacity(1 if visible else 0)
