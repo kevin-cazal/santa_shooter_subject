@@ -47,7 +47,10 @@ class LaVariable(Scene):
         c.shift(RIGHT * 3 + DOWN * 1.9 - c.fenetre.get_center())
         self.add(c)
         self.play(FadeIn(prog), FadeIn(p), run_time=0.5)
-        s = surligne(prog[1])
+        # Un cadre à la largeur de la ligne la plus longue : il saute d'une ligne à l'autre sans la couper.
+        large = max(l.width for l in prog[1:3]) + 0.2
+        s = Rectangle(width=large, height=prog[1].height + 0.2, stroke_color=ALERTE, stroke_width=3, fill_opacity=0)
+        s.move_to(prog[2].get_left() + RIGHT * large / 2 + LEFT * 0.1).set_y(prog[1].get_y())
         self.play(Create(s), run_time=0.3)
         for t in range(1, 5):
             s.set_y(prog[1].get_y())
