@@ -1,11 +1,11 @@
 WEBVTT
 
-00:00.000 --> 00:04.500
-35 > 30 est vrai : le bloc s'exécute
+00:00.000 --> 00:05.500
+35 > 30 : la barrière s'ouvre, le bloc s'exécute
 
-00:04.500 --> 00:08.800
-20 > 30 est faux : Lua saute au end
+00:05.500 --> 00:08.500
+20 > 30 : fermée, Lua saute au end
 
-00:08.800 --> 00:14.198
-dans le jeu : si la flèche est appuyée
+00:08.500 --> 00:16.098
+dans le jeu : la barrière est un bouton
 

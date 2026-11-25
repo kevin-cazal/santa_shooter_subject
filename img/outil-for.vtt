@@ -1,8 +1,8 @@
 WEBVTT
 
-00:00.000 --> 00:06.100
-i vaut 1, puis 2, puis 3 : trois tours
+00:00.000 --> 00:06.400
+i vaut 1, puis 2, puis 3 : trois tours, trois étoiles
 
-00:06.100 --> 00:13.417
+00:06.400 --> 00:13.717
 for i = 1, 50 : cinquante étoiles
 

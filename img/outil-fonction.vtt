@@ -1,14 +1,14 @@
 WEBVTT
 
-00:00.000 --> 00:02.133
-une fonction : un calcul qu'on nomme
+00:00.000 --> 00:03.133
+une fonction : une machine avec un nom
 
-00:02.133 --> 00:07.199
+00:03.133 --> 00:07.932
 double(4) : 4 entre, 8 sort
 
-00:07.199 --> 00:10.798
+00:07.932 --> 00:11.398
 double(10) : le même calcul, réutilisé
 
-00:10.798 --> 00:14.531
-dans le jeu : check_collision répond true ou false
+00:11.398 --> 00:15.464
+dans le jeu : check_collision allume une lampe
 

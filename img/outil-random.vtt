@@ -1,8 +1,8 @@
 WEBVTT
 
-00:00.000 --> 00:07.396
-math.random(1, 6) : comme un dé
+00:00.000 --> 00:08.596
+math.random(1, 6) : la roue s'arrête sur un nombre
 
-00:07.396 --> 00:15.729
+00:08.596 --> 00:19.329
 math.random(0, 136) : une hauteur sur l'écran
 

@@ -1,14 +1,14 @@
 WEBVTT
 
 00:00.000 --> 00:02.000
-points = {} : une liste vide
+points = {} : une étagère vide
 
-00:02.000 --> 00:06.100
-table.insert ajoute une carte à la fin
+00:02.000 --> 00:05.600
+table.insert pose une carte à la fin
 
-00:06.100 --> 00:09.400
-#points compte, points[2].x lit une case
+00:05.600 --> 00:08.400
+points[2].x : la case x de la carte 2, une position sur l'écran
 
-00:09.400 --> 00:15.300
-for i = 1, #points : chaque carte à son tour
+00:08.400 --> 00:15.499
+for i = 1, #points : chaque carte devient une étoile
 

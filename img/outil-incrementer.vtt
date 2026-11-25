@@ -1,14 +1,14 @@
 WEBVTT
 
-00:00.000 --> 00:02.600
-à droite : on lit la valeur
+00:00.000 --> 00:03.100
+à droite : la valeur actuelle, plus 1
 
-00:02.600 --> 00:04.300
-on calcule : 0 + 1
+00:03.100 --> 00:05.300
+à gauche : le résultat est stocké
 
-00:04.300 --> 00:06.500
-à gauche : on stocke le résultat
+00:05.300 --> 00:09.797
+encore : la boîte compte, le bonnet monte
 
-00:06.500 --> 00:15.997
-encore, et encore : la boîte compte
+00:09.797 --> 00:13.897
+dans le jeu : x = x + 1, un pixel par image
 
