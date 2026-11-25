@@ -6,9 +6,9 @@ au repos : hors de l'écran, vitesse 0
 00:02.400 --> 00:04.832
 le tir : il part de la position du joueur
 
-00:04.832 --> 00:07.832
+00:04.832 --> 00:11.630
 il avance : mx = mx + vmx, à chaque image
 
-00:07.832 --> 00:14.364
+00:11.630 --> 00:18.162
 sorti par la droite : retour au repos
 

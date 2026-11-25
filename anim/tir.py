@@ -54,9 +54,19 @@ class LeTir(Scene):
         # 3. Il avance.
         self.next_section("il avance : mx = mx + vmx, à chaque image")
         self.play(FadeOut(p), run_time=0.3)
-        p = phrase("à chaque image, mx = mx + vmx : il avance tout droit")
-        self.play(FadeIn(p), run_time=0.3)
-        vol(2.4)
+        p = phrase("au ralenti : à chaque image, vmx s'ajoute à mx. Le missile avance de 3 pixels par image")
+        ligne = code("mx = mx + vmx", 26, BLANC).move_to(RIGHT * 4.6 + DOWN * 1.6)
+        self.play(FadeIn(p), Write(ligne), run_time=0.6)
+        for _ in range(6):
+            # Le jeton « +3 » quitte vmx, atterrit sur mx : mx grandit de 3, le missile saute de 3 pixels.
+            jeton = VGroup(Circle(radius=0.22, fill_color=ALERTE, fill_opacity=1, stroke_width=0), code("+3", 18, FOND)).move_to(tags[2].get_right() + LEFT * 0.3)
+            self.play(FadeIn(jeton, scale=0.5), run_time=0.12)
+            self.play(jeton.animate.move_to(tags[0].get_right() + LEFT * 0.3), run_time=0.3)
+            self.play(FadeOut(jeton, scale=0.3), mx.animate.set_value(mx.get_value() + 3), run_time=0.18, rate_func=linear)
+        self.play(FadeOut(p), run_time=0.2)
+        p = phrase("à vitesse réelle, 60 images par seconde : il file tout droit")
+        self.play(FadeIn(p), FadeOut(ligne), run_time=0.3)
+        vol(1.6)
 
         # 4. Retour au repos.
         self.next_section("sorti par la droite : retour au repos")
