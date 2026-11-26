@@ -1,14 +1,14 @@
 WEBVTT
 
-00:00.000 --> 00:03.100
-à droite : la valeur actuelle, plus 1
+00:00.000 --> 00:02.000
+x = 20 : le bonnet est à 20
 
-00:03.100 --> 00:05.300
-à gauche : le résultat est stocké
+00:02.000 --> 00:04.600
+x = x + 1 : 21, un pixel plus à droite
 
-00:05.300 --> 00:09.797
-encore : la boîte compte, le bonnet monte
+00:04.600 --> 00:09.667
+encore : 22, 23, 24
 
-00:09.797 --> 00:13.897
-dans le jeu : x = x + 1, un pixel par image
+00:09.667 --> 00:14.367
+60 fois par seconde : le bonnet file
 

@@ -38,7 +38,7 @@ class LeTir(Scene):
         def tir():
             allumee = manette("Z", True).move_to(touche)
             self.play(Transform(touche, allumee), run_time=0.15)
-            self.play(mx.animate.set_value(JX + 16), my.animate.set_value(JY + 6), vmx.animate.set_value(3), run_time=0.3)
+            self.play(mx.animate.set_value(JX + 16), my.animate.set_value(JY), vmx.animate.set_value(3), run_time=0.3)
             self.play(Transform(touche, manette("Z").move_to(touche)), run_time=0.15)
 
         def vol(duree):

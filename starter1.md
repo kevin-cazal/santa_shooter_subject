@@ -91,7 +91,7 @@ Le bonnet s'affiche. Maintenant, il bouge avec les flèches.
 > compteur = compteur - 1   --> 0
 > ```
 >
-> ![compteur = compteur + 1. À droite du =, Lua lit la valeur de la boîte, 0. Il calcule 0 + 1. À gauche, le résultat 1 est stocké dans la boîte, qui est un compteur à rouleaux. Encore et encore : 2, 3, 4. Dans le jeu, x = x + 1 à chaque image : le joueur avance.](img/outil-incrementer.webp)
+> ![Le bonnet porte son nombre x, sa position : 20. x = x + 1 : x prend 1 de plus, et le bonnet avance d'un pixel sur une règle où chaque pixel se voit. Encore : 22, 23, 24. Puis dans TIC(), 60 fois par seconde : le bonnet file vers la droite.](img/outil-incrementer.webp)
 > <!-- ws:anim {src: img/outil-incrementer.webm, chapters: img/outil-incrementer.vtt} -->
 >
 > Doc Lua (en anglais) : [l'affectation](https://www.lua.org/manual/5.3/manual.html#3.3.3), [`+` et `-`](https://www.lua.org/manual/5.3/manual.html#3.4.1)

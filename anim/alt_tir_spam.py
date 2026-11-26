@@ -14,7 +14,7 @@ class LeTirSpam(Scene):
         ecran = Ecran(px=0.03, centre=UP * 0.9)
         mx = ValueTracker(-24)
         j = ecran.sprite("joueur", JX, JY, 2)
-        m = always_redraw(lambda: ecran.sprite_clippe("missile", int(mx.get_value()), JY + 6, 2))
+        m = always_redraw(lambda: ecran.sprite_clippe("missile", int(mx.get_value()), JY, 2))
         k = manette("Z").move_to(DOWN * 2.3)
         self.add(ecran.cadre, j, m, k)
 

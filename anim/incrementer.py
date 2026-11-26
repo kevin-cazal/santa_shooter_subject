@@ -1,90 +1,71 @@
-# Partie 1, boîte à outils « Incrémenter » : compteur = compteur + 1 est une
-# marche d'escalier. Un jeton +1 tombe dans le compteur à rouleaux, et le
-# bonnet monte d'une marche. Puis l'escalier se couche : x = x + 1, le joueur
-# avance d'un pixel par image.
+# Partie 1, boîte à outils « Incrémenter » : x = x + 1, et rien d'autre. Le
+# bonnet porte son nombre x ; à chaque fois que la ligne s'exécute, x prend 1
+# de plus et le bonnet avance d'un pixel, sur une règle où l'on voit chaque
+# pixel. Puis à vitesse réelle, 60 fois par seconde : il file.
 #
 #   capture.py anim anim/incrementer.py Incrementer -o img/outil-incrementer.webp --fps 30
 from manim import *
 from commun import *
 
-PX = 0.05
+PX = 0.15                  # un pixel du jeu, en unités manim : on voit chaque pixel
+X0, X1, Y0, Y1 = 16, 76, 52, 76   # la portion d'écran zoomée, en pixels du jeu
+COIN = LEFT * (X1 - X0) * PX / 2 + UP * ((Y1 - Y0) * PX / 2 - 0.3)
+
+
+def pos(x, y):
+    return COIN + RIGHT * (x - X0) * PX + DOWN * (y - Y0) * PX
 
 
 class Incrementer(Scene):
     def construct(self):
-        ligne = code("compteur = compteur + 1", 34).move_to(UP * 2.8)
-        gauche, droite = ligne[0:8], ligne[9:19]
-        self.play(Write(ligne), run_time=0.8)
-        v = ValueTracker(0)
-        c = Compteur("compteur", v.get_value, chiffres=1).scale(0.9)
-        c.shift(LEFT * 4.2 + DOWN * 0.4 - c.fenetre.get_center())
-        self.add(c)
-        # L'escalier : cinq marches qui montent vers la droite.
-        marches = VGroup()
-        for i in range(5):
-            m = Rectangle(width=1.0, height=0.45 * (i + 1), stroke_color=GRIS, stroke_width=2, fill_color=PANNEAU, fill_opacity=1)
-            m.move_to(RIGHT * (-1.0 + i * 1.0) + DOWN * (2.5 - 0.45 * (i + 1) / 2))
-            marches.add(m)
-        numeros = VGroup(*[code(str(i), 20, DOUX).next_to(m, DOWN, buff=0.1) for i, m in enumerate(marches)])
-        self.play(FadeIn(marches), FadeIn(numeros), run_time=0.5)
-
-        def dessus(i):
-            return marches[i].get_top() + LEFT * 4 * PX + UP * 8 * PX
-
-        bonnet = sprite("joueur", PX, 1, dessus(0))
-        self.play(FadeIn(bonnet), run_time=0.3)
-
-        def jeton():
-            j = VGroup(Circle(radius=0.3, fill_color=ALERTE, fill_opacity=1, stroke_width=0), code("+1", 22, FOND)).move_to(droite[8:10].get_center())
-            return j
-
-        def tour(n, lent):
-            r = 1.0 if lent else 0.5
-            s = surligne(droite, CIEL)
-            self.play(Create(s), run_time=0.25 * r)
-            j = jeton()
-            self.play(FadeIn(j, scale=0.5), run_time=0.3 * r)
-            self.play(Transform(s, surligne(gauche, ALERTE)), j.animate.move_to(c.fenetre.get_center()), run_time=0.5 * r)
-            self.play(FadeOut(j, scale=0.3), v.animate.set_value(n + 1), bonnet.animate.move_to(dessus(n + 1) + DOWN * 4 * PX), run_time=0.45 * r)
-            self.play(FadeOut(s), run_time=0.15 * r)
-
-        self.next_section("à droite : la valeur actuelle, plus 1")
-        p = phrase("à droite du =, Lua prend la valeur actuelle et ajoute 1 : un jeton +1")
-        self.play(FadeIn(p), run_time=0.3)
-        s = surligne(droite, CIEL)
-        self.play(Create(s), run_time=0.3)
-        j = jeton()
-        self.play(FadeIn(j, scale=0.5), run_time=0.4)
-        self.wait(0.5)
-
-        self.next_section("à gauche : le résultat est stocké")
-        self.play(FadeOut(p), run_time=0.2)
-        p = phrase("à gauche du =, le jeton entre dans la boîte : compteur vaut 1, et le bonnet monte d'une marche")
-        self.play(FadeIn(p), Transform(s, surligne(gauche, ALERTE)), j.animate.move_to(c.fenetre.get_center()), run_time=0.6)
-        self.play(FadeOut(j, scale=0.3), v.animate.set_value(1), bonnet.animate.move_to(dessus(1) + DOWN * 4 * PX), run_time=0.5)
-        self.play(FadeOut(s), run_time=0.2)
-        self.wait(0.7)
-
-        self.next_section("encore : la boîte compte, le bonnet monte")
-        self.play(FadeOut(p), run_time=0.2)
-        p = phrase("la même ligne, encore : à chaque fois, un jeton de plus et une marche de plus")
-        self.play(FadeIn(p), run_time=0.3)
-        tour(1, True)
-        tour(2, False)
-        tour(3, False)
-        self.wait(0.5)
-
-        self.next_section("dans le jeu : x = x + 1, un pixel par image")
-        self.play(FadeOut(p), FadeOut(marches), FadeOut(numeros), FadeOut(bonnet), run_time=0.3)
-        p = phrase("dans le jeu, x = x + 1 à chaque image : l'escalier est couché, le joueur avance d'un pixel")
-        l2 = code("x = x + 1", 34).move_to(ligne)
-        ecran = Ecran(px=0.024, centre=RIGHT * 1.2 + DOWN * 1.0)
+        ligne = code("x = x + 1", 40).move_to(UP * 3.0)
+        # La loupe : une portion d'écran où chaque pixel est une case.
+        grille = VGroup(*[Line(pos(x, Y0), pos(x, Y1), stroke_color=DOUX, stroke_width=1, stroke_opacity=0.18) for x in range(X0, X1 + 1)],
+                        *[Line(pos(X0, y), pos(X1, y), stroke_color=DOUX, stroke_width=1, stroke_opacity=0.18) for y in range(Y0, Y1 + 1)])
+        cadre = Rectangle(width=(X1 - X0) * PX, height=(Y1 - Y0) * PX, stroke_color=DOUX, stroke_width=2).move_to(pos((X0 + X1) / 2, (Y0 + Y1) / 2))
+        regle = VGroup(*[VGroup(Line(pos(x, Y1), pos(x, Y1) + DOWN * (0.22 if x % 5 == 0 else 0.1), stroke_color=DOUX, stroke_width=2),
+                                code(str(x), 18, DOUX).next_to(pos(x, Y1) + DOWN * 0.22, DOWN, buff=0.08) if x % 5 == 0 else VGroup())
+                         for x in range(X0, X1 + 1)])
         x = ValueTracker(20)
-        jj = always_redraw(lambda: ecran.sprite("joueur", int(x.get_value()), 60, 2))
-        cx = Compteur("x", x.get_value, chiffres=3).scale(0.9)
-        cx.shift(c.fenetre.get_center() - cx.fenetre.get_center())
-        self.remove(c)
-        self.add(cx)
-        self.play(FadeTransform(ligne, l2), FadeIn(p), FadeIn(ecran.cadre), FadeIn(jj), run_time=0.6)
-        self.play(x.animate.set_value(180), run_time=2.4, rate_func=linear)
+        bonnet = always_redraw(lambda: sprite("joueur", PX, 1, pos(int(x.get_value()), 60)))
+        etiq = always_redraw(lambda: etiquette(f"x = {int(x.get_value())}", ALERTE, 26).next_to(pos(int(x.get_value()) + 4, 60), UP, buff=0.25))
+        repere = always_redraw(lambda: DashedLine(pos(int(x.get_value()), 68), pos(int(x.get_value()), Y1) + DOWN * 0.22, stroke_color=ALERTE, stroke_width=2))
+
+        self.next_section("x = 20 : le bonnet est à 20")
+        p = phrase("le bonnet a un nombre, x : c'est sa position. Ici, x vaut 20")
+        self.play(FadeIn(grille), FadeIn(cadre), FadeIn(regle), run_time=0.5)
+        self.play(FadeIn(bonnet), FadeIn(etiq), FadeIn(repere), FadeIn(p), run_time=0.5)
+        self.wait(1.0)
+
+        self.next_section("x = x + 1 : 21, un pixel plus à droite")
+        self.play(FadeOut(p), run_time=0.2)
+        p = phrase("x = x + 1 : x prend 1 de plus, et le bonnet avance d'un pixel")
+        self.play(Write(ligne), FadeIn(p), run_time=0.7)
+        s = surligne(ligne)
+        self.play(Create(s), run_time=0.3)
+        self.play(x.animate.set_value(21), run_time=0.6)
+        self.wait(0.8)
+
+        self.next_section("encore : 22, 23, 24")
+        self.play(FadeOut(p), run_time=0.2)
+        p = phrase("la même ligne, encore : 22, 23, 24… un pixel à chaque fois")
+        self.play(FadeIn(p), run_time=0.3)
+        for v in (22, 23, 24):
+            self.play(FadeOut(s), run_time=0.1)
+            self.play(Create(s), x.animate.set_value(v), run_time=0.45)
+            self.wait(0.2)
+        self.play(FadeOut(s), run_time=0.15)
+        self.play(x.animate.set_value(44), run_time=1.6, rate_func=linear)
+        self.wait(0.5)
+
+        self.next_section("60 fois par seconde : le bonnet file")
+        self.play(FadeOut(p), FadeOut(grille), FadeOut(cadre), FadeOut(regle), FadeOut(repere), run_time=0.4)
+        p = phrase("dans TIC(), 60 fois par seconde : le bonnet file vers la droite")
+        ecran = Ecran(px=0.03, centre=DOWN * 0.3)
+        self.remove(bonnet, etiq)
+        x.set_value(20)
+        bonnet2 = always_redraw(lambda: ecran.sprite("joueur", int(x.get_value()), 60, 2))
+        etiq2 = always_redraw(lambda: etiquette(f"x = {int(x.get_value())}", ALERTE, 22).next_to(ecran.pos(int(x.get_value()) + 8, 60), UP, buff=0.15))
+        self.play(FadeIn(ecran.cadre), FadeIn(bonnet2), FadeIn(etiq2), FadeIn(p), run_time=0.5)
+        self.play(x.animate.set_value(200), run_time=3.0, rate_func=linear)
         self.wait(0.8)

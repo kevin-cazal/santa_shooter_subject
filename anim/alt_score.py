@@ -15,7 +15,7 @@ class LeScore(Scene):
         ex, ey = ValueTracker(250), ValueTracker(60)
         score = ValueTracker(0)
         j = ecran.sprite("joueur", JX, JY, 2)
-        m = always_redraw(lambda: ecran.sprite_clippe("missile", int(mx.get_value()), JY + 6, 2))
+        m = always_redraw(lambda: ecran.sprite_clippe("missile", int(mx.get_value()), JY, 2))
 
         e = always_redraw(lambda: ecran.sprite_clippe("ennemi", int(ex.get_value()), int(ey.get_value()), 2))
         texte_score = always_redraw(lambda: code(f"SCORE: {int(score.get_value())}", 22, BLANC).move_to(ecran.pos(40, 8)))
