@@ -1,17 +1,17 @@
 WEBVTT
 
-00:00.000 --> 00:01.933
+00:00.000 --> 00:01.900
 chat : une table avec des cases
 
-00:01.933 --> 00:03.600
+00:01.900 --> 00:03.600
 function chat:manger() : une fonction de la table
 
-00:03.600 --> 00:07.533
+00:03.600 --> 00:07.400
 chat:manger() : la carte entre, sous le nom self
 
-00:07.533 --> 00:09.666
+00:07.400 --> 00:09.500
 la carte ressort changée
 
-00:09.666 --> 00:14.798
+00:09.500 --> 00:14.400
 dans le jeu : player:update() reçoit la table player
 
