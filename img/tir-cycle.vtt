@@ -3,12 +3,12 @@ WEBVTT
 00:00.000 --> 00:02.400
 au repos : hors de l'écran, vitesse 0
 
-00:02.400 --> 00:04.832
+00:02.400 --> 00:05.732
 le tir : il part de la position du joueur
 
-00:04.832 --> 00:11.630
+00:05.732 --> 00:12.530
 il avance : mx = mx + vmx, à chaque image
 
-00:11.630 --> 00:18.162
+00:12.530 --> 00:19.062
 sorti par la droite : retour au repos
 

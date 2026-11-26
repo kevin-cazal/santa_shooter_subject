@@ -17,12 +17,22 @@ class LeTir(Scene):
         mx, my, vmx = ValueTracker(REPOS[0]), ValueTracker(REPOS[1]), ValueTracker(0)
         joueur = ecran.sprite("joueur", JX, JY, 2)
         missile = always_redraw(lambda: ecran.sprite("missile", int(mx.get_value()), int(my.get_value()), 2))
-        tags = always_redraw(lambda: VGroup(
-            etiquette(f"mx  = {int(mx.get_value()):>4}", BLANC, 26),
-            etiquette(f"my  = {int(my.get_value()):>4}", BLANC, 26),
-            etiquette(f"vmx = {int(vmx.get_value()):>4}", ALERTE, 26),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.25).move_to(RIGHT * 4.6 + UP * 1.2))
-        touche = manette("Z").next_to(tags, DOWN, buff=0.8)
+        # Les trois nombres du missile : d'abord collés au sprite, puis mis de côté pour les lire.
+        cote = ValueTracker(0)      # 0 : à côté du missile ; 1 : sur le côté de l'écran
+
+        def tags_f():
+            t = cote.get_value()
+            g = VGroup(
+                etiquette(f"mx  = {int(mx.get_value()):>4}", BLANC, 26),
+                etiquette(f"my  = {int(my.get_value()):>4}", BLANC, 26),
+                etiquette(f"vmx = {int(vmx.get_value()):>4}", ALERTE, 26),
+            ).arrange(DOWN, aligned_edge=LEFT, buff=0.25).scale(0.7 + 0.3 * t)
+            pres = ecran.pos(mx.get_value() + 20, my.get_value() + 6) + RIGHT * g.width / 2
+            loin = RIGHT * 4.6 + UP * 1.2
+            return g.move_to(interpolate(pres, loin, t))
+
+        tags = always_redraw(tags_f)
+        touche = manette("Z").move_to(RIGHT * 4.6 + DOWN * 0.5)
         self.add(ecran.cadre, joueur, missile, tags, touche)
 
         def tir():
@@ -39,7 +49,7 @@ class LeTir(Scene):
 
         # 1. Au repos.
         self.next_section("au repos : hors de l'écran, vitesse 0")
-        p = phrase("le missile attend hors de l'écran : on ne le voit pas, mais il existe")
+        p = phrase("le missile attend hors de l'écran : on ne le voit pas, mais il existe, avec ses trois nombres")
         self.play(FadeIn(p), Indicate(missile, color=ALERTE, scale_factor=1.6), run_time=1.2)
         self.wait(1.2)
 
@@ -49,7 +59,10 @@ class LeTir(Scene):
         p = phrase("appui sur Z : le missile prend la position du joueur, et une vitesse")
         self.play(FadeIn(p), run_time=0.3)
         tir()
-        self.wait(1.2)
+        self.wait(0.6)
+        # Les nombres suivent le missile ; on les range sur le côté pour les lire.
+        self.play(cote.animate.set_value(1), run_time=0.9)
+        self.wait(0.6)
 
         # 3. Il avance.
         self.next_section("il avance : mx = mx + vmx, à chaque image")
