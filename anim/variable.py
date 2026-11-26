@@ -14,7 +14,8 @@ class LaVariable(Scene):
         x = ValueTracker(20)
         ecran = Ecran(px=0.026, centre=RIGHT * 3.2 + UP * 0.9)
         bonnet = always_redraw(lambda: ecran.sprite("joueur", int(x.get_value()), 60, 2))
-        etiq = always_redraw(lambda: etiquette(f"x = {int(x.get_value())}", ALERTE, 22).next_to(ecran.pos(int(x.get_value()) + 8, 60), UP, buff=0.15))
+        etiq = always_redraw(lambda: VGroup(origine(ecran.pos(int(x.get_value()), 60)),
+                                            etiquette(f"x = {int(x.get_value())}", ALERTE, 22).next_to(ecran.pos(int(x.get_value()) + 8, 60), UP, buff=0.15)))
         boite = Boite("x", 20, centre=LEFT * 3.4 + DOWN * 0.9)
         tours = ValueTracker(0)
         cpt = Compteur("tour", tours.get_value, chiffres=2, couleur=CIEL).scale(0.65)

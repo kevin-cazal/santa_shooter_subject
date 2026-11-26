@@ -11,7 +11,8 @@ class LEnnemiTraverse(Scene):
         ecran = Ecran(px=0.03, centre=UP * 0.6)
         ex, ey = ValueTracker(250), ValueTracker(40)
 
-        e = always_redraw(lambda: ecran.sprite_clippe("ennemi", int(ex.get_value()), int(ey.get_value()), 2))
+        e = always_redraw(lambda: VGroup(ecran.sprite_clippe("ennemi", int(ex.get_value()), int(ey.get_value()), 2),
+                                         origine(ecran.pos(min(max(int(ex.get_value()), 0), 239), int(ey.get_value())))))
         j = ecran.sprite("joueur", 20, 60, 2)
         tag = always_redraw(lambda: etiquette(f"ey = {int(ey.get_value())}", ALERTE, 24).next_to(ecran.cadre, DOWN, buff=0.3))
         self.add(ecran.cadre, j, e, tag)

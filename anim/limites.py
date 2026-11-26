@@ -13,7 +13,8 @@ class LesLimites(Scene):
         px, py = ValueTracker(116), ValueTracker(64)
         joueur = always_redraw(lambda: VGroup(
             ecran.boite(int(px.get_value()), int(py.get_value()), couleur=ALERTE, largeur=2),
-            ecran.sprite("joueur", int(px.get_value()), int(py.get_value()))))
+            ecran.sprite("joueur", int(px.get_value()), int(py.get_value())),
+            origine(ecran.pos(int(px.get_value()), int(py.get_value())), rayon=0.07)))
         tag = always_redraw(lambda: etiquette(f"x = {int(px.get_value())}   y = {int(py.get_value())}", ALERTE, 24)
                             .next_to(ecran.cadre.get_corner(UR), DL, buff=0.25))
         self.add(ecran.cadre, ecran.axes(), joueur, tag)

@@ -141,6 +141,12 @@ class Ecran:
         return g
 
 
+def origine(point, couleur=ALERTE, rayon=0.055):
+    """Le petit point à l'origine d'un sprite, son pixel en haut à gauche : c'est
+    là que pointent x et y. Toujours présent quand on nomme les coordonnées d'un sprite."""
+    return Dot(point, radius=rayon, color=couleur)
+
+
 def manette(touche, allumee=False, taille=0.6):
     """Une touche du clavier, comme l'overlay des GIF : allumée quand elle est appuyée."""
     k = RoundedRectangle(width=taille, height=taille, corner_radius=0.1, stroke_color=DOUX, stroke_width=2,

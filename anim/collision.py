@@ -24,7 +24,9 @@ class LaCollision(Scene):
         b = always_redraw(lambda: sprite("ennemi", PX, 1, pos(bx.get_value(), by.get_value())))
         b_boite = always_redraw(lambda: Rectangle(width=8 * PX, height=8 * PX, stroke_color=VERT, stroke_width=3)
                                 .move_to(pos(bx.get_value() + 4, by.get_value() + 4)))
-        self.add(a, a_boite, b, b_boite)
+        a_orig = origine(pos(AX, AY), couleur=BLANC, rayon=0.08)
+        b_orig = always_redraw(lambda: origine(pos(bx.get_value(), by.get_value()), couleur=VERT, rayon=0.08))
+        self.add(a, a_boite, b, b_boite, a_orig, b_orig)
 
         # Les deux axes : X sous la zone, Y à sa gauche.
         y_axe, x_axe = 26, -4

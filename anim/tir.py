@@ -32,8 +32,9 @@ class LeTir(Scene):
             return g.move_to(interpolate(pres, loin, t))
 
         tags = always_redraw(tags_f)
+        point = always_redraw(lambda: origine(ecran.pos(mx.get_value(), my.get_value())))
         touche = manette("Z").move_to(RIGHT * 4.6 + DOWN * 0.5)
-        self.add(ecran.cadre, joueur, missile, tags, touche)
+        self.add(ecran.cadre, joueur, missile, point, tags, touche)
 
         def tir():
             allumee = manette("Z", True).move_to(touche)

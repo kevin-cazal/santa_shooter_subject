@@ -17,7 +17,7 @@ class LeVecteurVitesse(Scene):
         self.next_section("au ralenti : à chaque image, la position augmente de la vitesse")
         img = ValueTracker(0)
         mx = ValueTracker(8)
-        m = always_redraw(lambda: ecran.sprite("missile", int(mx.get_value()), 60, 2))
+        m = always_redraw(lambda: VGroup(ecran.sprite("missile", int(mx.get_value()), 60, 2), origine(ecran.pos(int(mx.get_value()), 60))))
         tag = always_redraw(lambda: etiquette(f"mx = {int(mx.get_value())}", ALERTE, 24).next_to(ecran.cadre, DOWN, buff=0.25).shift(LEFT * 2.5))
         c = Compteur("image", img.get_value, chiffres=1, couleur=CIEL).scale(0.6)
         c.shift(RIGHT * 2.5 + DOWN * 2.5 - c.fenetre.get_center())
