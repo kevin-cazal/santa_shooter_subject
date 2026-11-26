@@ -78,7 +78,7 @@ Le bonnet s'affiche. Maintenant, il bouge avec les flèches.
 > print(vies)   --> 3
 > ```
 >
-> ![vies = 3 : une boîte nommée vies, 3 dedans. print(vies) lit la boîte et affiche 3. La même ligne placée dans TIC() est refaite à chaque tour, et la valeur ne bouge jamais. Hors de TIC(), créée une fois, elle descend bien 2, 1, 0.](img/outil-variable.webp)
+> ![x = 20 : la boîte x contient 20, et le jeu dessine le bonnet à 20. x = 120 : le bonnet est à 120. La ligne x = 20 écrite dans TIC() remplit la boîte à chaque tour, et le bonnet revient à 20 malgré la flèche. Hors de TIC(), la boîte est remplie une seule fois et le bonnet avance.](img/outil-variable.webp)
 > <!-- ws:anim {src: img/outil-variable.webm, chapters: img/outil-variable.vtt} -->
 >
 > Doc Lua (en anglais) : [les variables](https://www.lua.org/manual/5.3/manual.html#3.2)
