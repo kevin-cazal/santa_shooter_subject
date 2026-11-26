@@ -1,6 +1,7 @@
-# Partie 2, « Parallaxe » : des étoiles de tailles différentes. Toutes à la
-# même vitesse, le ciel est plat. Les grosses (proches) plus vite que les
-# petites (loin) : de la profondeur, sans 3D. Le coefficient reste à écrire.
+# Partie 2, « Parallaxe » : deux ciels côte à côte, les mêmes étoiles. À
+# gauche, toutes à la même vitesse : plat. À droite, un curseur « coefficient »
+# règle de combien les grosses étoiles vont plus vite : 0, c'est plat aussi ;
+# plus il monte, plus on voit de la profondeur. Le coefficient reste à écrire.
 #
 #   capture.py anim anim/parallaxe.py LaParallaxe -o img/parallaxe-profondeur.webp --fps 30
 import random
@@ -8,56 +9,55 @@ from manim import *
 from commun import *
 
 random.seed(7)
+ETOILES = [(random.uniform(0, W), random.uniform(2, H - 2), random.randint(1, 3)) for _ in range(50)]
+
+
+class Ciel:
+    def __init__(self, scene, centre, coef):
+        self.ecran = Ecran(px=0.025, centre=centre)
+        self.coef = coef      # un ValueTracker : 0 = même vitesse, 1 = vitesse selon la taille
+        self.etoiles = VGroup()
+        for gx, gy, taille in ETOILES:
+            e = Dot(radius=taille * self.ecran.px * 0.6, color=BLANC if taille > 1 else DOUX)
+            e.gx, e.gy, e.taille = gx, gy, taille
+            self.etoiles.add(e)
+        self.etoiles.add_updater(self.avancer)
+        self.avancer(self.etoiles, 0)
+        scene.add(self.ecran.cadre, self.etoiles, self.ecran.sprite("joueur", 16, 60, 2))
+
+    def avancer(self, groupe, dt):
+        c = self.coef.get_value()
+        for e in groupe:
+            vitesse = 1.0 * (1 - c) + e.taille * 0.6 * c
+            e.gx -= dt * 60 * vitesse
+            if e.gx < 0:
+                e.gx += W
+            e.move_to(self.ecran.pos(e.gx, e.gy))
 
 
 class LaParallaxe(Scene):
     def construct(self):
-        ecran = Ecran(px=0.03, centre=LEFT * 2.4 + UP * 0.3)
-        k = ValueTracker(0)        # 0 : même vitesse pour toutes ; 1 : vitesse selon la taille
-        etoiles = VGroup()
-        for _ in range(50):
-            taille = random.randint(1, 3)
-            e = Dot(radius=taille * ecran.px * 0.55, color=BLANC if taille > 1 else DOUX)
-            e.gx, e.gy, e.taille = random.uniform(0, W), random.uniform(2, H - 2), taille
-            etoiles.add(e)
+        plat = Ciel(self, LEFT * 3.3 + UP * 0.6, ValueTracker(0))
+        coef = ValueTracker(0)
+        profond = Ciel(self, RIGHT * 3.3 + UP * 0.6, coef)
+        t1 = texte("même vitesse pour toutes", 22, DOUX).next_to(plat.ecran.cadre, UP, buff=0.2)
+        t2 = texte("vitesse selon la taille", 22, CHANGE).next_to(profond.ecran.cadre, UP, buff=0.2)
+        reg = Reglage("coefficient", 0, 1, 0, CHANGE, decimales=1).placer(RIGHT * 3.3 + DOWN * 2.4)
+        self.add(t1, t2, reg)
 
-        def avancer(groupe, dt):
-            for e in groupe:
-                vitesse = 1.0 * (1 - k.get_value()) + e.taille * 0.6 * k.get_value()   # pixels par image
-                e.gx -= dt * 60 * vitesse
-                if e.gx < 0:
-                    e.gx, e.gy = W, random.uniform(2, H - 2)
-                e.move_to(ecran.pos(e.gx, e.gy))
+        self.next_section("coefficient 0 : les deux ciels sont plats")
+        p = phrase("coefficient 0 : les deux ciels sont plats, comme un dessin")
+        self.play(FadeIn(p), run_time=0.4); self.wait(3.0)
 
-        avancer(etoiles, 0)
-        etoiles.add_updater(avancer)
-        joueur = ecran.sprite("joueur", 16, 60, 2)
-        self.add(ecran.cadre, etoiles, joueur)
+        self.next_section("coefficient 1 : les grosses étoiles vont plus vite")
+        self.play(FadeOut(p), run_time=0.2)
+        p = phrase("à droite, le coefficient monte : les grosses étoiles, proches, vont plus vite")
+        self.play(FadeIn(p), coef.animate.set_value(1), reg.t.animate.set_value(1), run_time=2.0); self.wait(2.6)
 
-        # 1. Même vitesse.
-        self.next_section("toutes à la même vitesse : un ciel plat")
-        p = phrase("toutes les étoiles à la même vitesse : le ciel est plat, comme un dessin")
-        self.play(FadeIn(p), run_time=0.5)
-        self.wait(3.0)
-
-        # 2. Vitesse selon la taille.
-        self.next_section("les grosses étoiles sont proches : plus vite")
-        self.play(FadeOut(p), run_time=0.3)
-        p = phrase("une grosse étoile est proche : elle va plus vite. Une petite est loin : plus lente")
-        legende = VGroup()
-        for taille, mots in ((1, "petite · loin · lente"), (2, "moyenne"), (3, "grosse · proche · rapide")):
-            d = Dot(radius=taille * 0.05 + 0.03, color=BLANC)
-            fl = Arrow(ORIGIN, LEFT * (0.35 + 0.45 * taille), buff=0, color=ALERTE, stroke_width=4,
-                       max_tip_length_to_length_ratio=0.25).next_to(d, LEFT, buff=0.15)
-            t = texte(mots, 18, DOUX).next_to(d, RIGHT, buff=0.2)
-            legende.add(VGroup(fl, d, t))
-        legende.arrange(DOWN, aligned_edge=LEFT, buff=0.5).move_to(RIGHT * 4.0 + UP * 0.6)
-        self.play(FadeIn(p), FadeIn(legende), k.animate.set_value(1), run_time=1.2)
-        self.wait(3.2)
-
-        # 3. La parallaxe.
-        self.next_section("la parallaxe : de la profondeur, sans 3D")
-        self.play(FadeOut(p), run_time=0.3)
-        p = phrase("c'est la parallaxe : l'œil voit de la profondeur, sans aucune 3D")
-        self.play(FadeIn(p), run_time=0.4)
-        self.wait(3.0)
+        self.next_section("retour vers 0 : la profondeur disparaît")
+        self.play(FadeOut(p), run_time=0.2)
+        p = phrase("le coefficient redescend : la profondeur disparaît")
+        self.play(FadeIn(p), coef.animate.set_value(0.2), reg.t.animate.set_value(0.2), run_time=2.0); self.wait(1.6)
+        self.play(FadeOut(p), run_time=0.2)
+        p = phrase("c'est la parallaxe : de la profondeur sans 3D, avec un seul coefficient")
+        self.play(FadeIn(p), coef.animate.set_value(1), reg.t.animate.set_value(1), run_time=1.5); self.wait(2.6)

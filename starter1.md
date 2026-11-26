@@ -13,7 +13,7 @@ Un joueur qui bouge, qui tire, des ennemis, un score. Les étapes se font dans l
 
 **Un jeu, c'est une boucle.** TIC-80 appelle ta fonction `TIC` 60 fois par seconde.
 
-![La boucle de jeu. La ligne x = 0 s'exécute une fois. Puis TIC tourne : x augmente, cls efface l'écran, spr dessine le joueur à la position x. De plus en plus vite : le joueur avance d'un pixel par image.](img/intro-boucle.webp)
+![La boucle de jeu. x = 0 s'exécute une fois. Puis TIC tourne : x = 0 + 1 donne x = 1, cls vide l'écran, spr dessine le bonnet à la position x. Tour après tour, de plus en plus vite : le bonnet avance d'un pixel par image.](img/intro-boucle.webp)
 <!-- ws:anim {src: img/intro-boucle.webm, chapters: img/intro-boucle.vtt} -->
 
 # Mouvement joueur
@@ -91,7 +91,7 @@ Le bonnet s'affiche. Maintenant, il bouge avec les flèches.
 > compteur = compteur - 1   --> 0
 > ```
 >
-> ![Le bonnet porte son nombre x, sa position : 20. x = x + 1 : x prend 1 de plus, et le bonnet avance d'un pixel sur une règle où chaque pixel se voit. Encore : 22, 23, 24. Puis dans TIC(), 60 fois par seconde : le bonnet file vers la droite.](img/outil-incrementer.webp)
+> ![Le bonnet porte son nombre x, sa position : 20, avec un point à son origine. x = x + 1 : x prend 1 de plus, le bonnet avance d'un pixel sur une loupe où chaque pixel se voit. Encore : 22, 23, 24. La loupe se referme sur l'écran : x continue, 60 fois par seconde, avec un compteur d'images.](img/outil-incrementer.webp)
 > <!-- ws:anim {src: img/outil-incrementer.webm, chapters: img/outil-incrementer.vtt} -->
 >
 > Doc Lua (en anglais) : [l'affectation](https://www.lua.org/manual/5.3/manual.html#3.3.3), [`+` et `-`](https://www.lua.org/manual/5.3/manual.html#3.4.1)
@@ -118,7 +118,7 @@ Le bonnet s'affiche. Maintenant, il bouge avec les flèches.
 > end
 > ```
 >
-> ![temperature = 35 : 35 > 30 est vrai, Lua entre dans le bloc et print affiche il fait chaud. Avec 20 : faux, Lua saute au end, rien ne s'affiche. Dans le jeu, la condition est un bouton : appuyé, le joueur avance ; relâché, rien.](img/outil-if.webp)
+> ![Trois panneaux. À gauche la touche flèche droite. Au milieu la question btn(3) ? avec deux branches : vrai, le bonnet avance ; faux, rien. À droite l'écran. Touche relâchée : la branche faux s'allume, le bonnet ne bouge pas. Touche appuyée : la branche vrai s'allume, le bonnet avance. 60 fois par seconde, la question est posée.](img/outil-if.webp)
 > <!-- ws:anim {src: img/outil-if.webm, chapters: img/outil-if.vtt} -->
 >
 > Doc Lua (en anglais) : [`if`](https://www.lua.org/manual/5.3/manual.html#3.3.4), [les comparaisons](https://www.lua.org/manual/5.3/manual.html#3.4.4)
@@ -147,7 +147,7 @@ Trop loin, le bonnet sort de l'écran. Il doit s'arrêter contre les bords.
 
 > 🧰 **Les quatre bords** : `x` et `y` sont le coin en haut à gauche d'un sprite de 8 pixels.
 >
-> ![Les quatre bords. À gauche, x vaut 0. En haut, y vaut 0. À droite, avec x = 240 le sprite est déjà sorti : son bord droit est x + 8, il touche le bord quand x + 8 vaut 240. En bas, pareil avec y + 8 et 136.](img/limites-bords.webp)
+> ![Les quatre bords, avec x et y collés au bonnet. À gauche, x vaut 0. En haut, y vaut 0. À droite, avec x = 240 le sprite est déjà sorti : une loupe montre ses 8 pixels, son bord droit est x + 8, il touche quand x + 8 vaut 240. En bas, pareil avec y + 8 et 136. Quatre bords, quatre conditions.](img/limites-bords.webp)
 > <!-- ws:anim {src: img/limites-bords.webm, chapters: img/limites-bords.vtt} -->
 <!-- /ws:toolbox -->
 
@@ -258,7 +258,7 @@ Si tu martèles le bouton, le missile se téléporte en plein vol. Et une fois s
 
 > 🧰 **Un seul missile, qui fait des tours.** Sa vitesse dit dans quel état il est.
 >
-> ![La vie d'un missile. Au repos, hors de l'écran, vitesse 0. Appui sur Z : il prend la position du joueur et une vitesse de 3. Il avance à chaque image. Sorti par la droite, il revient au repos. Un seul missile, qui fait des tours.](img/tir-cycle.webp)
+> ![Un seul missile, deux états. Prêt à être tiré : hors de l'écran, vitesse 0, ses trois nombres mx, my, vmx posés à côté. Appui sur Z : tiré depuis le joueur, vmx = 3, les nombres sont rangés sur le côté, reliés par un fil. Au ralenti, à chaque image vmx s'ajoute à mx, avec un compteur d'images. Sorti à droite : remis hors de l'écran, prêt à être tiré. Puis un curseur vmx : à 0 le missile ne part pas, à 8 il va plus vite, à -3 il recule.](img/tir-cycle.webp)
 > <!-- ws:anim {src: img/tir-cycle.webm, chapters: img/tir-cycle.vtt} -->
 <!-- /ws:toolbox -->
 
@@ -312,7 +312,7 @@ L'ennemi avance tout seul vers la gauche. Sorti, il repart de la droite, à une 
 > print(de)   --> 4 (ou 1, 2, 3, 5, 6 : comme un dé)
 > ```
 >
-> ![de = math.random(1, 6), six fois : un dé tombe sur 4, 1, 6, 3, 6, 2. Puis ey = math.random(0, 136) : l'ennemi apparaît à droite de l'écran à une hauteur différente à chaque appel.](img/outil-random.webp)
+> ![math.random(1, 6) : une roue de loterie, trois tours, trois nombres : 4, 1, 6. Puis math.random(0, 136), une roue graduée de 0 à 136 avec un repère entre 136 et 0 : elle tombe sur 101. 101 devient ey, la hauteur de l'ennemi, son ex vaut 232. L'ennemi avance vers la gauche : ex baisse, ey reste 101.](img/outil-random.webp)
 > <!-- ws:anim {src: img/outil-random.webm, chapters: img/outil-random.vtt} -->
 >
 > Doc Lua (en anglais) : [`math.random`](https://www.lua.org/manual/5.3/manual.html#pdf-math.random)
@@ -353,7 +353,7 @@ L'ennemi traverse le bonnet comme un fantôme. Quand ils se touchent, les deux r
 
 > 🧰 **Deux boîtes se touchent** quand elles se chevauchent sur X et sur Y. Quelles comparaisons sont vraies de 10–18 contre 15–23, et fausses contre 20–28 ?
 >
-> ![Sur l'axe X, le segment du joueur va de 10 à 18. L'ennemi de 15 à 23 : oui, ils se chevauchent entre 15 et 18. De 20 à 28 : non. Sur l'axe Y, la même question. Oui sur X mais non sur Y : pas de collision. Oui sur les deux axes : collision.](img/collision-deux-axes.webp)
+> ![Deux boîtes, de x à x + 8 et de y à y + 8. Sur l'axe X, le segment du joueur va de 10 à 18, celui de l'ennemi de 15 à 23 : le verdict axe X : oui est écrit sur l'axe. L'ennemi glisse jusqu'à 20 à 28 : axe X : non. Sur l'axe Y, la même question. Oui sur X mais non sur Y : pas de collision. Non sur X, oui sur Y : pas de collision. Oui sur les deux axes : collision.](img/collision-deux-axes.webp)
 > <!-- ws:anim {src: img/collision-deux-axes.webm, chapters: img/collision-deux-axes.vtt} -->
 >
 > ![Pas de collision : les deux boîtes ne se touchent pas.](img/collision-non.png)

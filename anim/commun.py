@@ -273,3 +273,60 @@ class Console:
         self.lignes.append(l)
         self.scene.play(FadeIn(l, shift=RIGHT * 0.2), run_time=run_time)
         return l
+
+
+# ---------------------------------------------------------------------------
+# Le code couleur, fixé le 26/11 : une couleur par rôle, reprise partout.
+CHANGE = ALERTE      # ce qui change : une valeur, un jeton, une étiquette qui bouge
+LU = CIEL            # ce qu'on lit : une condition, une ligne surlignée, un curseur
+VRAI = VERT
+FAUX = ROUGE
+
+
+def fleche_vitesse(depart, vx, vy=0, echelle=0.06, couleur=LU):
+    """La flèche de vitesse : part de l'origine du sprite, sa longueur dit la vitesse,
+    son sens le signe. `echelle` : unités manim par unité de vitesse."""
+    if vx == 0 and vy == 0:
+        return Dot(depart, radius=0.06, color=couleur)
+    return Arrow(depart, depart + RIGHT * vx * echelle * 10 + DOWN * vy * echelle * 10, buff=0, color=couleur,
+                 stroke_width=5, max_tip_length_to_length_ratio=0.3)
+
+
+def guides(ecran, x, y, couleur=CHANGE):
+    """Les guides pointillés : de l'origine du sprite jusqu'au bord du bas et jusqu'au
+    bord de gauche, pour dire quel nombre est x et lequel est y."""
+    return VGroup(DashedLine(ecran.pos(x, y), ecran.pos(x, H), stroke_color=couleur, stroke_width=2),
+                  DashedLine(ecran.pos(x, y), ecran.pos(0, y), stroke_color=couleur, stroke_width=2))
+
+
+def fil(depart, arrivee, couleur=CHANGE):
+    """Le fil : un trait fin entre l'origine d'un sprite et ses nombres rangés sur le côté."""
+    return Line(depart, arrivee, stroke_color=couleur, stroke_width=1.5, stroke_opacity=0.75)
+
+
+def badge(t, couleur=LU, taille=20):
+    """L'étiquette d'état : « tiré », « prêt à être tiré », sur l'objet."""
+    fond = RoundedRectangle(width=0.36 + 0.115 * len(t), height=0.42, corner_radius=0.2, fill_color=couleur, fill_opacity=1, stroke_width=0)
+    return VGroup(fond, texte(t, taille, FOND).move_to(fond))
+
+
+class Reglage(VGroup):
+    """Un curseur : un nom, un rail, un bouton, et sa valeur à droite. Le nom est le mot de
+    l'élève, jamais la ligne de la solution. Porté de World Generator."""
+
+    def __init__(self, nom, mini, maxi, valeur, couleur=LU, largeur=2.6, decimales=0):
+        super().__init__()
+        self.t = ValueTracker(valeur)
+        self.mini, self.maxi = mini, maxi
+        self.rail = Line(LEFT * largeur / 2, RIGHT * largeur / 2, stroke_color=DOUX, stroke_width=4)
+        self.nom = texte(nom, 22, couleur).next_to(self.rail, UP, buff=0.22)
+        self.bouton = Dot(radius=0.13, color=couleur)
+        self.bouton.add_updater(lambda m: m.move_to(self.rail.point_from_proportion(min(1, max(0, (self.t.get_value() - mini) / (maxi - mini))))))
+        self.bouton.update()
+        fmt = (lambda v: str(round(v))) if decimales == 0 else (lambda v: f"{v:.{decimales}f}")
+        self.nombre = always_redraw(lambda: code(fmt(self.t.get_value()), 22, couleur).next_to(self.rail, RIGHT, buff=0.2))
+        self.add(self.rail, self.nom, self.bouton, self.nombre)
+
+    def placer(self, pos):
+        self.shift(pos - self.rail.get_center())
+        return self

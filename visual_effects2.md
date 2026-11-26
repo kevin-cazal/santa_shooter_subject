@@ -23,7 +23,7 @@ Un fond noir et cinquante étoiles qui défilent : le joueur vole dans la nuit.
 > --> 1  2  3
 > ```
 >
-> ![for i = 1, 3 do print(i) end : le compteur i passe de 1 à 3, une ligne s'affiche à chaque tour, puis la boucle s'arrête. for i = 1, 50 : cinquante tours, et à chaque tour une étoile de plus dans le ciel.](img/outil-for.webp)
+> ![for i = 1, 3 : le compteur i passe de 1 à 3, une étoile numérotée par tour, puis la boucle s'arrête. La borne devient un curseur nombre d'étoiles : 10, puis 50 : cinquante tours, cinquante étoiles, trois lignes de code.](img/outil-for.webp)
 > <!-- ws:anim {src: img/outil-for.webm, chapters: img/outil-for.vtt} -->
 >
 > Doc Lua (en anglais) : [`for`](https://www.lua.org/manual/5.3/manual.html#3.3.5)
@@ -40,7 +40,7 @@ Un fond noir et cinquante étoiles qui défilent : le joueur vole dans la nuit.
 > end
 > ```
 >
-> ![points = {} : trois emplacements vides, numérotés. table.insert pose une carte {x, y} dans le premier emplacement libre, puis une deuxième. #points vaut 2, et la case x de la carte 2 vaut 50. for i = 1, #points : i vaut 1 puis 2, et la carte numéro i est lue à chaque tour.](img/outil-liste.webp)
+> ![points = {} : une étagère à cartes, vide, avec une étiquette #points = 0. table.insert pose une carte {x, y} à la fin, trois fois, l'étiquette compte 1, 2, 3. La case x de la carte 2 vaut 50 : un fil la relie à une position sur l'écran. for i = 1, #points : i vaut 1, 2, 3, chaque carte devient une étoile à sa position.](img/outil-liste.webp)
 > <!-- ws:anim {src: img/outil-liste.webm, chapters: img/outil-liste.vtt} -->
 >
 > Doc Lua (en anglais) : [les tables](https://www.lua.org/manual/5.3/manual.html#3.4.9), [`table.insert`](https://www.lua.org/manual/5.3/manual.html#pdf-table.insert)
@@ -75,7 +75,7 @@ Une grosse étoile est proche, une petite est loin. Si les proches vont plus vit
 
 > 🧰 **Perspective et parallaxe** : un objet proche paraît plus gros, et plus rapide. Par la fenêtre d'un train, les poteaux filent, les montagnes ne bougent pas.
 >
-> ![Un ciel d'étoiles de trois tailles. Toutes à la même vitesse, le ciel est plat. Puis les grosses étoiles, proches, vont plus vite que les petites, loin : on voit de la profondeur, sans 3D.](img/parallaxe-profondeur.webp)
+> ![Deux ciels côte à côte, les mêmes étoiles. À gauche, toutes à la même vitesse : plat. À droite, un curseur coefficient monte de 0 à 1 : les grosses étoiles, proches, vont plus vite que les petites, on voit de la profondeur. Il redescend : la profondeur disparaît.](img/parallaxe-profondeur.webp)
 > <!-- ws:anim {src: img/parallaxe-profondeur.webm, chapters: img/parallaxe-profondeur.vtt} -->
 <!-- /ws:toolbox -->
 
@@ -98,7 +98,7 @@ Poussière, neige, flammes, explosion : un effet de particules. Ici, l'ennemi ex
 
 > 🧰 **Les trois ingrédients** : un émetteur (où elles naissent), une physique (comment elles bougent), une longévité (quand elles disparaissent).
 >
-> ![Le missile touche l'ennemi. L'émetteur : huit particules naissent au même point, huit entrées dans la liste. La physique : chacune a sa vitesse et s'éloigne. La longévité : vie baisse de 1 à chaque image, à 0 la particule est retirée de la liste, qui se vide.](img/particules-trois-ingredients.webp)
+> ![Le missile touche l'ennemi, qui reste en silhouette. L'émetteur : huit particules naissent à ce point, huit cartes dans la liste. La physique : chacune a sa flèche de vitesse et avance d'autant par image. La longévité : vie baisse de 1 par image, à 0 la particule est retirée et la liste se vide. Un curseur vie à 50 : les mêmes particules durent plus longtemps et vont plus loin.](img/particules-trois-ingredients.webp)
 > <!-- ws:anim {src: img/particules-trois-ingredients.webm, chapters: img/particules-trois-ingredients.vtt} -->
 
 > 🧰 **`table.remove(liste, i)`** retire l'élément `i`. Pour retirer en parcourant, parcours à l'envers : `for i = #liste, 1, -1 do`.

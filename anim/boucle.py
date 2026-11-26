@@ -1,7 +1,6 @@
-# Partie 1, « Intro » : le concept du jeu. Une variable se crée une seule fois,
-# puis TIC() tourne 60 fois par seconde : mettre à jour les nombres, effacer
-# l'écran, dessiner. Le mouvement, c'est des images qui se suivent.
-# Pas de btn ici : c'est la boucle qu'on montre, pas l'étape Input.
+# Partie 1, « Intro » : la boucle de jeu. x = 0 une seule fois, puis TIC()
+# tourne : x = x + 1 (on voit x = 0 + 1 devenir x = 1), cls efface l'écran
+# (le bonnet disparaît), spr le redessine. Puis 60 fois par seconde.
 #
 #   capture.py anim anim/boucle.py LaBoucleDeJeu -o img/intro-boucle.webp --fps 30
 from manim import *
@@ -10,87 +9,71 @@ from commun import *
 
 class LaBoucleDeJeu(Scene):
     def construct(self):
-        prog = bloc_code([
-            "x = 0",
-            "",
-            "function TIC()",
-            "  x = x + 1",
-            "  cls(0)",
-            "  spr(0, x, 60)",
-            "end",
-        ], 28).to_edge(LEFT, buff=0.7).shift(UP * 0.5)
+        prog = bloc_code(["x = 0", "", "function TIC()", "  x = x + 1", "  cls(0)", "  spr(0, x, 60)", "end"], 28).to_edge(LEFT, buff=0.7).shift(UP * 1.0)
         large = max(l.width for l in prog) + 0.2
         haut = prog[0].height + 0.2
 
-        def surligne(ligne, couleur=ALERTE):
-            # Même taille pour toutes les lignes : passer de l'une à l'autre est
-            # un glissement, pas un morphing qui raye le code à mi-chemin.
+        def cadre(k, couleur=LU):
             r = Rectangle(width=large, height=haut, stroke_color=couleur, stroke_width=3, fill_opacity=0)
-            return r.move_to(ligne.get_left() + RIGHT * large / 2 + LEFT * 0.1).set_y(ligne.get_y())
-        ecran = Ecran(px=0.028, centre=RIGHT * 3.4 + UP * 1.4)
+            return r.move_to(prog[k].get_left() + RIGHT * large / 2 + LEFT * 0.1).set_y(prog[k].get_y())
+
+        ecran = Ecran(px=0.028, centre=RIGHT * 3.4 + UP * 1.6)
         x = ValueTracker(0)
-        # Le compteur à rouleaux : la façon convenue de montrer une boucle qui tourne.
+        visible = ValueTracker(1)      # 0 pendant cls : l'écran est vide
         valeur = Compteur("x", x.get_value, chiffres=3).scale(0.75)
-        # Assez bas pour que ses caches, couleur du fond, ne coupent pas le bord de l'écran.
-        valeur.shift(ecran.cadre.get_bottom() + DOWN * 1.6 - valeur.fenetre.get_center())
-        self.add(ecran.cadre, prog)
+        valeur.shift(ecran.cadre.get_bottom() + DOWN * 1.5 - valeur.fenetre.get_center())
+        self.add(ecran.cadre, prog, valeur)
+        s = cadre(0)
 
         # 1. Avant TIC : une seule fois.
-        self.next_section("avant TIC : les variables, une seule fois")
-        s = surligne(prog[0])
+        self.next_section("x = 0 : une seule fois, au lancement")
+        self.play(Create(s), run_time=0.5)
+        p = phrase("x = 0 s'exécute une seule fois, au lancement")
+        self.play(FadeIn(p)); self.wait(1.2)
 
-        def aller(k):
-            s.set_y(prog[k].get_y())
-            return Wait(0)   # le saut est immédiat ; on garde la forme d'une animation
+        # 2. Update : x = 0 + 1 devient x = 1.
+        self.next_section("x = x + 1 : x = 0 + 1, donc x = 1")
+        s.set_y(prog[3].get_y())
+        self.play(FadeOut(p), run_time=0.3)
+        p = phrase("x = x + 1 : x vaut 0, donc x = 0 + 1")
+        calc = code("x = 0 + 1", 30, CHANGE).next_to(prog, DOWN, buff=0.6).align_to(prog, LEFT)
+        self.play(FadeIn(p), FadeTransform(prog[3].copy(), calc), run_time=0.8)
+        self.wait(1.0)
+        res = code("x = 1", 30, CHANGE).move_to(calc).align_to(calc, LEFT)
+        self.play(FadeTransform(calc, res), x.animate.set_value(1), run_time=0.8)
+        self.play(FadeOut(p), run_time=0.2)
+        p = phrase("x = 0 devient x = 1. L'écran, lui, n'a pas bougé")
+        self.play(FadeIn(p)); self.wait(1.2)
+        self.play(FadeOut(res), run_time=0.3)
 
-        self.add(valeur)
-        self.play(Create(s), run_time=0.6)
-        p = phrase("cette ligne s'exécute une seule fois, au lancement")
-        self.play(FadeIn(p))
-        self.wait(1.4)
+        # 3. Draw : cls vide l'écran, spr dessine.
+        self.next_section("cls efface l'écran, spr dessine le bonnet")
+        s.set_y(prog[4].get_y())
+        self.play(FadeOut(p), run_time=0.2)
+        p = phrase("cls(0) : l'écran est effacé, il est vide")
+        voile = ecran.cadre.copy().set_fill(BLANC, opacity=0.3).set_stroke(width=0)
+        self.play(FadeIn(p), FadeIn(voile), run_time=0.3)
+        self.play(FadeOut(voile), run_time=0.3); self.wait(0.8)
+        s.set_y(prog[5].get_y())
+        joueur = always_redraw(lambda: ecran.sprite("joueur", int(x.get_value()), 60, 2).set_opacity(visible.get_value()))
+        self.play(FadeOut(p), run_time=0.2)
+        p = phrase("spr(0, x, 60) : le bonnet est dessiné à la position x")
+        self.play(FadeIn(joueur, scale=0.6), FadeIn(p), run_time=0.6); self.wait(1.2)
 
-        # 2. Update : les nombres changent, l'écran non.
-        self.next_section("update : les nombres changent")
-        aller(3)
-        self.play(FadeOut(p), run_time=0.4)
-        p = phrase("x change… mais l'écran ne bouge pas encore")
-        self.play(x.animate.set_value(1), FadeIn(p), run_time=0.8)
-        self.wait(1.2)
-
-        # 3. Draw : cls efface, spr dessine.
-        self.next_section("draw : cls efface, spr dessine")
-        aller(4)
-        self.play(FadeOut(p), run_time=0.4)
-        voile = ecran.cadre.copy().set_fill(BLANC, opacity=0.35).set_stroke(width=0)
-        p = phrase("cls efface tout l'écran…")
-        self.play(FadeIn(voile, run_time=0.2), FadeIn(p))
-        self.play(FadeOut(voile), run_time=0.3)
-        self.wait(0.5)
-        aller(5)
-        self.play(FadeOut(p), run_time=0.4)
-        joueur = always_redraw(lambda: ecran.sprite("joueur", int(x.get_value()), 60, 2))
-        p = phrase("…puis spr dessine le joueur, à la position x")
-        self.play(FadeIn(joueur, scale=0.6), FadeIn(p), run_time=0.6)
-        self.wait(1.2)
-
-        # 4. Et on recommence, de plus en plus vite.
+        # 4. Et on recommence : d'abord lentement, le bonnet disparaît entre cls et spr.
         self.next_section("et on recommence : 60 fois par seconde")
         self.play(FadeOut(p), run_time=0.3)
-        p = phrase("et on recommence : update, cls, spr… 60 fois par seconde")
+        p = phrase("tour suivant : x = 1 + 1, cls efface, spr redessine un pixel plus loin")
         self.play(FadeIn(p), run_time=0.4)
-        for duree, tours in ((0.28, 3), (0.14, 4), (0.06, 8)):
-            for _ in range(tours):
-                aller(3)
-                self.play(x.animate.set_value(x.get_value() + 1), run_time=duree, rate_func=linear)
-                aller(4)
-                self.wait(duree)
-                aller(5)
-                self.wait(duree)
+        for duree in (0.45, 0.45, 0.3, 0.3, 0.2, 0.2, 0.12, 0.12, 0.12):
+            s.set_y(prog[3].get_y())
+            self.play(x.animate.set_value(x.get_value() + 1), run_time=duree, rate_func=linear)
+            s.set_y(prog[4].get_y()); visible.set_value(0); self.wait(duree * 0.6)
+            s.set_y(prog[5].get_y()); visible.set_value(1); self.wait(duree * 0.6)
         self.remove(s)
-        boucle = SurroundingRectangle(prog[3:6], color=CIEL, buff=0.08, stroke_width=3)
+        boucle = SurroundingRectangle(prog[3:6], color=LU, buff=0.08, stroke_width=3)
         self.add(boucle)
-        self.play(x.animate.set_value(x.get_value() + 48), run_time=0.8, rate_func=linear)
-        self.play(FadeOut(p), run_time=0.3)
-        p = phrase("le joueur avance d'un pixel par image : c'est ça, le mouvement")
-        self.play(x.animate.set_value(x.get_value() + 48), FadeIn(p), run_time=0.8, rate_func=linear)
+        self.play(FadeOut(p), run_time=0.2)
+        p = phrase("60 tours par seconde : le bonnet avance d'un pixel par image")
+        self.play(FadeIn(p), x.animate.set_value(x.get_value() + 100), run_time=1.8, rate_func=linear)
         self.wait(1.2)

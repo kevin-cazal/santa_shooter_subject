@@ -23,7 +23,7 @@ class LeTirSpam(Scene):
             self.play(Transform(k, manette("Z").move_to(k)), run_time=0.08)
 
         self.next_section("avant : chaque appui ramène le missile devant le joueur")
-        p = phrase("avant : à chaque appui, le missile revient devant le joueur, même s'il est déjà parti")
+        p = phrase("avant : chaque appui ramène le missile devant le joueur, même déjà tiré")
         self.play(FadeIn(p), run_time=0.3)
         for _ in range(4):
             mx.set_value(JX + 16)
@@ -35,7 +35,7 @@ class LeTirSpam(Scene):
         self.next_section("après : le missile part une seule fois")
         self.play(FadeOut(p), run_time=0.2)
         mx.set_value(-24)
-        p = phrase("après : le missile part une seule fois, les appuis suivants ne font plus rien")
+        p = phrase("après : un seul tir, les appuis suivants ne font rien")
         self.play(FadeIn(p), run_time=0.3)
         mx.set_value(JX + 16)
         appui()

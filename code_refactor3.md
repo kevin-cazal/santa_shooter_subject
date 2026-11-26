@@ -24,7 +24,7 @@ Beaucoup de variables globales : `x`, `y`, `mx`, `ex`... Plus tu ajoutes d'armes
 > print(chat.faim)   --> 2
 > ```
 >
-> ![chat est une table avec une case nom et une jauge faim à 3. function chat:manger() est une fonction de cette table. chat:manger() : la carte entre dans la fonction sous le nom self, sa jauge baisse d'un cran, et elle ressort à 2. Puis la carte player entre dans player:update() et ressort un pixel plus à droite.](img/outil-self.webp)
+> ![chat est une table avec une case nom et une jauge faim à 3. function chat:manger() est une fonction de cette table. chat:manger() : la carte entre dans la fonction sous le nom self, sa jauge baisse d'un cran, et elle ressort à 2. Puis la carte player entre dans player:update(), dont le corps est le commentaire bouger, et ressort déplacée.](img/outil-self.webp)
 > <!-- ws:anim {src: img/outil-self.webm, chapters: img/outil-self.vtt} -->
 >
 > Référence (en anglais) : [Programming in Lua, chapitre 16](https://www.lua.org/pil/16.html). Juste le principe : pas de classes ni d'héritage ici.

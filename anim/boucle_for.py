@@ -1,6 +1,6 @@
 # Partie 2, boîte à outils « La boucle for » : i compte de 1 à 3 au compteur
-# à rouleaux, et chaque tour tamponne une étoile numérotée sur l'écran. Puis
-# for i = 1, 50 : cinquante tours, cinquante étoiles.
+# à rouleaux, chaque tour tamponne une étoile numérotée. Puis la borne devient
+# un curseur : 3, 10, 50 étoiles.
 #
 #   capture.py anim anim/boucle_for.py LaBoucleFor -o img/outil-for.webp --fps 60
 import random
@@ -21,42 +21,43 @@ class LaBoucleFor(Scene):
         self.add(c)
         ecran = Ecran(px=0.022, centre=RIGHT * 4.0 + DOWN * 0.2)
         self.play(FadeIn(ecran.cadre), run_time=0.3)
-        p = phrase("for i = 1, 3 : i prend chaque valeur de 1 à 3, et le bloc tamponne une étoile à chaque tour")
+        p = phrase("for i = 1, 3 : i compte de 1 à 3, une étoile par tour")
         self.play(FadeIn(p), run_time=0.3)
-        s = surligne(prog[0])
+        s = surligne(prog[0], LU)
         self.play(Create(s), run_time=0.3)
-        premieres = VGroup()
+        positions = [(random.uniform(10, 230), random.uniform(10, 126)) for _ in range(50)]
+        etoiles = VGroup()
         for i in (1, 2, 3):
             s.set_y(prog[0].get_y())
             self.play(v.animate.set_value(i), run_time=0.5)
             s.set_y(prog[1].get_y())
-            e = VGroup(Dot(radius=0.07, color=BLANC), code(str(i), 18, ALERTE)).arrange(RIGHT, buff=0.1).move_to(ecran.pos(40 + i * 50, 40 + i * 20))
+            e = VGroup(Dot(radius=0.07, color=BLANC), code(str(i), 22, CHANGE)).arrange(RIGHT, buff=0.1).move_to(ecran.pos(*positions[i - 1]))
             self.play(FadeIn(e, scale=0.4), run_time=0.3)
-            premieres.add(e)
-            self.wait(0.2)
-        s.set_y(prog[2].get_y())
-        self.wait(0.3)
-        self.play(FadeOut(s), run_time=0.2)
-        self.play(FadeOut(p), run_time=0.2)
-        p = phrase("trois tours, trois étoiles. Après 3, la boucle s'arrête")
-        self.play(FadeIn(p), run_time=0.3)
-        self.wait(1.0)
+            etoiles.add(e)
+            self.wait(0.3)
+        s.set_y(prog[2].get_y()); self.wait(0.4)
+        self.play(FadeOut(s), FadeOut(p), run_time=0.2)
+        p = phrase("après 3, la boucle s'arrête : trois étoiles")
+        self.play(FadeIn(p), run_time=0.3); self.wait(1.2)
 
-        self.next_section("for i = 1, 50 : cinquante étoiles")
-        self.play(FadeOut(p), FadeOut(premieres), run_time=0.3)
-        prog2 = bloc_code(["for i = 1, 50 do", "  -- une étoile", "end"], 28).move_to(prog).align_to(prog, LEFT)
-        self.play(FadeTransform(prog, prog2), v.animate.set_value(0), run_time=0.6)
-        p = phrase("for i = 1, 50 : cinquante tours, et à chaque tour une étoile de plus dans le ciel")
-        self.play(FadeIn(p), run_time=0.4)
-        etoiles = [Dot(radius=random.randint(1, 3) * ecran.px * 0.55, color=BLANC).move_to(ecran.pos(random.uniform(2, 238), random.uniform(2, 134)))
-                   for _ in range(50)]
-        s = surligne(prog2[1])
-        self.add(s)
-        for i, e in enumerate(etoiles, start=1):
-            d = 0.22 if i <= 5 else (0.1 if i <= 15 else 0.045)
-            self.play(v.animate.set_value(i), FadeIn(e, scale=0.5), run_time=d, rate_func=linear)
-        self.play(FadeOut(s), run_time=0.2)
+        self.next_section("la borne est un réglage : 10, puis 50 étoiles")
         self.play(FadeOut(p), run_time=0.2)
-        p = phrase("une boucle, c'est ce qui fait 50 étoiles avec trois lignes")
-        self.play(FadeIn(p), run_time=0.3)
-        self.wait(1.4)
+        reg = Reglage("nombre d'étoiles", 1, 50, 3, CHANGE).placer(LEFT * 3.4 + DOWN * 1.6)
+        p = phrase("la borne de la boucle est un réglage : 10 étoiles")
+        n_t = always_redraw(lambda: code(f"for i = 1, {int(reg.t.get_value())} do", 28).move_to(prog[0]).align_to(prog[0], LEFT))
+        self.remove(prog[0]); self.add(n_t)
+        self.play(FadeIn(reg), FadeIn(p), run_time=0.4)
+        self.play(reg.t.animate.set_value(10), run_time=0.8)
+        for i in range(4, 11):
+            e = Dot(radius=0.06, color=BLANC).move_to(ecran.pos(*positions[i - 1]))
+            self.play(v.animate.set_value(i), FadeIn(e, scale=0.5), run_time=0.18, rate_func=linear)
+            etoiles.add(e)
+        self.wait(0.8)
+        self.play(FadeOut(p), run_time=0.2)
+        p = phrase("50 : cinquante tours, cinquante étoiles, trois lignes de code")
+        self.play(FadeIn(p), reg.t.animate.set_value(50), run_time=0.8)
+        for i in range(11, 51):
+            e = Dot(radius=random.randint(1, 3) * ecran.px * 0.55, color=BLANC).move_to(ecran.pos(*positions[i - 1]))
+            self.play(v.animate.set_value(i), FadeIn(e, scale=0.5), run_time=0.05, rate_func=linear)
+            etoiles.add(e)
+        self.wait(1.6)

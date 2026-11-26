@@ -3,12 +3,12 @@ WEBVTT
 00:00.000 --> 00:01.900
 deux boîtes : de x à x + 8, de y à y + 8
 
-00:01.900 --> 00:07.700
+00:01.900 --> 00:10.300
 sur l'axe X : les deux segments se chevauchent ?
 
-00:07.700 --> 00:12.100
+00:10.300 --> 00:15.400
 sur l'axe Y : la même question
 
-00:12.100 --> 00:21.300
+00:15.400 --> 00:25.400
 collision : oui sur X et oui sur Y
 

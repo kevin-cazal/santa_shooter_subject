@@ -26,17 +26,19 @@ class LaVariable(Scene):
         self.next_section("x = 20 : une boîte, et le bonnet est à 20")
         ligne = code("x = 20", 32).to_edge(LEFT, buff=0.8).shift(UP * 2.4)
         self.play(Write(ligne), run_time=0.6)
-        p = phrase("une variable stocke une valeur : la boîte x contient 20, et le jeu dessine le bonnet à 20")
+        p = phrase("la boîte x contient 20 : le bonnet est dessiné à x = 20")
         self.play(FadeIn(p), run_time=0.3)
         boite.poser(self)
         self.play(FadeIn(ecran.cadre), run_time=0.3)
         self.play(FadeTransform(boite.val.copy(), etiq), FadeIn(bonnet), run_time=0.6)
-        self.wait(0.8)
+        g = guides(ecran, 20, 60)
+        self.play(Create(g), run_time=0.5); self.wait(1.0)
+        self.play(FadeOut(g), run_time=0.3)
 
         # 2. Changer la boîte déplace le bonnet.
         self.next_section("changer la boîte, c'est déplacer le bonnet")
         self.play(FadeOut(p), run_time=0.2)
-        p = phrase("changer ce qu'il y a dans la boîte, c'est déplacer le bonnet : x = 120, il est à 120")
+        p = phrase("x = 120 : la boîte change, le bonnet est dessiné à 120")
         l2 = code("x = 120", 32).move_to(ligne).align_to(ligne, LEFT)
         self.play(FadeIn(p), FadeTransform(ligne, l2), run_time=0.5)
         ligne = l2
@@ -51,7 +53,7 @@ class LaVariable(Scene):
         self.add(cpt, touche)
         boite.changer(self, 20, run_time=0.2)
         x.set_value(20)
-        p = phrase("x = 20 écrit dans TIC() : à chaque tour, la boîte est remplie avec 20, et le bonnet revient à 20")
+        p = phrase("x = 20 dans TIC() : à chaque tour la boîte est remise à 20")
         # Le tuyau part à droite de la ligne, contourne le bloc de code par la droite, et descend dans la boîte.
         xd = prog.get_right()[0] + 0.4
         yl = prog[1].get_right()[1]
@@ -77,7 +79,7 @@ class LaVariable(Scene):
         self.next_section("hors de TIC() : remplie une seule fois, le bonnet avance")
         self.play(FadeOut(p), FadeOut(tuyau), run_time=0.3)
         prog2 = bloc_code(["x = 20", "", "function TIC()", "  -- la flèche fait", "  -- avancer x", "end"], 24).move_to(prog).align_to(prog, LEFT)
-        p = phrase("crée tes variables en haut du code, hors de TIC() : la boîte est remplie une seule fois, le bonnet avance")
+        p = phrase("x = 20 hors de TIC() : remplie une seule fois, le bonnet avance")
         self.play(FadeTransform(prog, prog2), FadeIn(p), run_time=0.6)
         self.play(Transform(touche, manette("→", True).move_to(touche)), run_time=0.15)
         for t in range(5, 9):
