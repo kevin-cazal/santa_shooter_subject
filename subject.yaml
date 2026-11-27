@@ -19,7 +19,7 @@ runtime:
   engine: "TIC-80"
   language: "lua"
   id: "tic80"
-  version: "bf64803"          # tic80-web-editor commit the dist was built from (Lua REPL panel, xterm.js)
+  version: "3892c7a"          # tic80-web-editor_runtime main (REPL Lua, onglets de la cartouche, zoom fractionnaire)
   title: "TIC-80"
   pane:
     placement: side           # side | bottom
