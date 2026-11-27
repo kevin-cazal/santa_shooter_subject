@@ -208,11 +208,8 @@ Un appui sur le bouton de tir lance le missile tout droit, depuis le joueur.
 > | `-2` | diminue |
 > | `0` | ne change pas |
 >
-> ![Au ralenti, avec un vecteur vitesse de +24 pour bien voir : à chaque image, la position du missile augmente de 24. Elle vaut 8, puis 32, puis 56, et ainsi de suite.](img/vitesse-ralenti.gif)
->
-> ![Quatre missiles, avec leur vitesse écrite à gauche. Avec 0, le missile ne bouge pas. Avec -2, il va vers la gauche. Plus la flèche est longue, plus le missile va vite.](img/vitesse-comparaison.gif)
->
-> ![Une vitesse de +2 sur X (flèche orange) et de +1 sur Y (flèche bleue) : l'objet avance en diagonale (flèche jaune).](img/vitesse-diagonale.gif)
+> ![Trois chapitres. Au ralenti, avec une vitesse de +24 pour bien voir : à chaque image, mx augmente de 24, 8 puis 32 puis 56, avec un compteur d'images. Quatre missiles, leur vitesse écrite à gauche : avec 0 le missile ne bouge pas, avec -2 il recule, plus la flèche est longue, plus il va vite. Une vitesse de +2 sur x et de +1 sur y : l'objet avance en diagonale.](img/vitesse-vecteur.webp)
+> <!-- ws:anim {src: img/vitesse-vecteur.webm, chapters: img/vitesse-vecteur.vtt} -->
 <!-- /ws:toolbox -->
 
 ### Mise en application

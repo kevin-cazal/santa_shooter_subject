@@ -1,9 +1,9 @@
-# Alternative manim aux trois GIF du vecteur vitesse (img/vitesse-ralenti.gif,
+# Partie 1, boîte à outils « Le vecteur vitesse », à la place des trois GIF (vitesse-ralenti,
 # vitesse-comparaison.gif, vitesse-diagonale.gif), en une scène à trois états :
 # au ralenti, la position augmente de la vitesse à chaque image ; quatre
 # missiles à quatre vitesses ; une vitesse en x et une en y font une diagonale.
 #
-#   capture.py anim anim/alt_vitesse.py LeVecteurVitesse -o img/alt-vitesse.webp --fps 30
+#   capture.py anim anim/vitesse.py LeVecteurVitesse -o img/vitesse-vecteur.webp --fps 30
 from manim import *
 from commun import *
 
