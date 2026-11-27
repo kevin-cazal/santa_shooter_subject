@@ -5,7 +5,7 @@ Ce qui donne son allure au jeu. Les étapes Bonus sont facultatives : la suite s
 ## Ciel étoilé
 <!-- ws: {type: exercise, id: fx-ciel-etoile} -->
 
-Un fond noir et cinquante étoiles qui défilent : le joueur vole dans la nuit.
+Un fond noir et cinquante étoiles qui défilent vers la gauche : le joueur semble avancer dans la nuit.
 
 <!-- ws:toolbox -->
 ### Boîte à outils
@@ -117,7 +117,7 @@ Poussière, neige, flammes, explosion : un effet de particules. Ici, l'ennemi ex
 
 **Ton objectif :** une liste de particules. À chaque collision, plusieurs naissent au point de contact, chacune avec sa vitesse et sa vie.
 
-<!-- illustration: GIF : le missile touche l'ennemi, huit particules jaillissent et s'éteignent -->
+<!-- illustration: GIF : le missile touche l'ennemi, huit particules naissent au point d'impact, s'écartent, puis sont retirées -->
 
 **C'est réussi si :** l'explosion part du contact, et il ne reste rien une seconde plus tard.
 

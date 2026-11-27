@@ -57,7 +57,7 @@ class LaCondition(Scene):
         self.play(FadeIn(p), Transform(touche, manette("→", False, taille=0.9).move_to(touche)), run_time=0.3)
         allumer(False); self.wait(1.2)
 
-        self.next_section("appuyée encore : vrai, il repart")
+        self.next_section("appuyée encore : vrai, il avance de nouveau")
         self.play(FadeOut(p), run_time=0.2)
         p = phrase("60 fois par seconde, la question est posée : vrai, il avance")
         self.play(FadeIn(p), Transform(touche, manette("→", True, taille=0.9).move_to(touche)), run_time=0.3)

@@ -71,14 +71,14 @@ Le bonnet s'affiche. Maintenant, il bouge avec les flèches.
 <!-- ws:toolbox -->
 ### Boîte à outils
 
-> 🧰 **Une variable** stocke une valeur. Crée-la en haut du code, hors de `function TIC()` : sinon elle repart de zéro 60 fois par seconde.
+> 🧰 **Une variable** stocke une valeur. Crée-la en haut du code, hors de `function TIC()` : dans `TIC()`, elle serait remise à sa valeur de départ 60 fois par seconde.
 >
 > ```lua
 > vies = 3
 > print(vies)   --> 3
 > ```
 >
-> ![x = 20 : la boîte x contient 20, et le jeu dessine le bonnet à 20. x = 120 : le bonnet est à 120. La ligne x = 20 écrite dans TIC() remplit la boîte à chaque tour, et le bonnet revient à 20 malgré la flèche. Hors de TIC(), la boîte est remplie une seule fois et le bonnet avance.](img/outil-variable.webp)
+> ![x = 20 : la boîte x contient 20, et le jeu dessine le bonnet à 20. x = 120 : le bonnet est à 120. Écrite dans TIC(), la ligne x = 20 s'exécute à chaque tour : x est remis à 20, le bonnet n'avance pas malgré l'appui sur le bouton. Hors de TIC(), la boîte est remplie une seule fois et le bonnet avance.](img/outil-variable.webp)
 > <!-- ws:anim {src: img/outil-variable.webm, chapters: img/outil-variable.vtt} -->
 >
 > Doc Lua (en anglais) : [les variables](https://www.lua.org/manual/5.3/manual.html#3.2)
@@ -156,7 +156,7 @@ Trop loin, le bonnet sort de l'écran. Il doit s'arrêter contre les bords.
 
 **Ton objectif :** quatre conditions, une par bord.
 
-![Avant : sans conditions, le joueur sort de l'écran et disparaît.](img/limites-avant.gif)
+![Avant : sans conditions, le joueur sort de l'écran et on ne le voit plus.](img/limites-avant.gif)
 
 ![Après : avec les conditions, le joueur s'arrête contre les bords de l'écran.](img/limites-apres.gif)
 
@@ -227,9 +227,9 @@ Un appui sur le bouton de tir lance le missile tout droit, depuis le joueur.
 ## Logique additionnelle
 <!-- ws: {type: exercise, id: bullet-logique} -->
 
-Si tu martèles le bouton, le missile se téléporte en plein vol. Et une fois sorti, il ne revient jamais.
+Si tu martèles le bouton, le missile est replacé devant le joueur alors qu'il est déjà tiré. Et une fois sorti de l'écran, il n'est jamais remis prêt à être tiré.
 
-![Le problème : à chaque appui sur le bouton de tir, le missile revient devant le joueur, même s'il est déjà parti.](img/tir-spam-avant.gif)
+![Le problème : à chaque appui sur le bouton de tir, le missile est replacé devant le joueur, même s'il est déjà tiré.](img/tir-spam-avant.gif)
 
 <!-- ws:toolbox -->
 ### Boîte à outils
@@ -256,7 +256,7 @@ Si tu martèles le bouton, le missile se téléporte en plein vol. Et une fois s
 >
 > Doc Lua (en anglais) : [`and`, `or`, `not`](https://www.lua.org/manual/5.3/manual.html#3.4.5)
 
-> 🧰 **Un seul missile, qui fait des tours.** Sa vitesse dit dans quel état il est.
+> 🧰 **Un seul missile, deux états : prêt à être tiré, tiré.** Sa vitesse dit dans lequel il est.
 >
 > ![Un seul missile, deux états. Prêt à être tiré : hors de l'écran, vitesse 0, ses trois nombres mx, my, vmx posés à côté. Appui sur Z : tiré depuis le joueur, vmx = 3, les nombres sont rangés sur le côté, reliés par un fil. Au ralenti, à chaque image vmx s'ajoute à mx, avec un compteur d'images. Sorti à droite : remis hors de l'écran, prêt à être tiré. Puis un curseur vmx : à 0 le missile ne part pas, à 8 il va plus vite, à -3 il recule.](img/tir-cycle.webp)
 > <!-- ws:anim {src: img/tir-cycle.webm, chapters: img/tir-cycle.vtt} -->
@@ -265,7 +265,7 @@ Si tu martèles le bouton, le missile se téléporte en plein vol. Et une fois s
 ### Mise en application
 <!-- ws:doit -->
 
-**Ton objectif :** le tir part seulement si le missile est au repos. Sorti à droite, il revient se cacher en (-10, -10), vitesse 0.
+**Ton objectif :** le missile est tiré seulement s'il est prêt à être tiré. Sorti à droite, il est remis en (-10, -10), vitesse 0 : prêt à être tiré.
 
 ![Avec la nouvelle condition : le missile part une seule fois, les appuis suivants ne font plus rien.](img/tir-spam-apres.gif)
 
@@ -300,7 +300,7 @@ Un ennemi, immobile pour l'instant.
 ## Mouvement
 <!-- ws: {type: exercise, id: enemy-mouvement} -->
 
-L'ennemi avance tout seul vers la gauche. Sorti, il repart de la droite, à une hauteur au hasard.
+L'ennemi avance tout seul vers la gauche. Sorti à gauche, il est replacé à droite, à une hauteur au hasard.
 
 <!-- ws:toolbox -->
 ### Boîte à outils
@@ -329,18 +329,18 @@ L'ennemi avance tout seul vers la gauche. Sorti, il repart de la droite, à une 
 ### Mise en application
 <!-- ws:doit -->
 
-**Ton objectif :** `ex`, `ey`, `vex`, `vey`. Il part un peu à droite de l'écran, à un `ey` aléatoire, et y repart quand il sort à gauche.
+**Ton objectif :** `ex`, `ey`, `vex`, `vey`. Il commence un peu à droite de l'écran, à un `ey` aléatoire, et y est replacé quand il sort à gauche.
 
 ![L'ennemi traverse l'écran de droite à gauche. À chaque nouveau passage, sa hauteur est choisie au hasard.](img/ennemi-mouvement.gif)
 
-**C'est réussi si :** l'ennemi réapparaît à droite après chaque sortie, jamais à la même hauteur.
+**C'est réussi si :** après chaque sortie, l'ennemi est replacé à droite, jamais à la même hauteur.
 
 # Collision
 
 ## Enemy VS Player
 <!-- ws: {type: exercise, id: collision-enemy-player} -->
 
-L'ennemi traverse le bonnet comme un fantôme. Quand ils se touchent, les deux repartent de leur départ.
+L'ennemi passe sur le bonnet sans que rien n'arrive. Quand ils se touchent, les deux sont replacés à leur position de départ.
 
 <!-- ws:toolbox -->
 ### Boîte à outils
@@ -366,7 +366,7 @@ L'ennemi traverse le bonnet comme un fantôme. Quand ils se touchent, les deux r
 
 **Ton objectif :** une condition qui détecte le contact, et réinitialise les deux positions.
 
-<!-- illustration: GIF : l'ennemi arrive sur le bonnet, les deux disparaissent et réapparaissent à leur position de départ -->
+<!-- illustration: GIF : l'ennemi arrive sur le bonnet : au contact, les deux sont replacés à leur position de départ -->
 
 **C'est réussi si :** le contact renvoie les deux sprites au départ, un passage à côté ne fait rien.
 
@@ -399,7 +399,7 @@ Même méthode entre le missile et l'ennemi. Cette fois, toucher rapporte des po
 ### Mise en application
 <!-- ws:doit -->
 
-**Ton objectif :** une variable `score`, +100 par ennemi touché, affichée à l'écran. Missile et ennemi repartent au départ.
+**Ton objectif :** une variable `score`, +100 par ennemi touché, affichée à l'écran. Le missile est remis prêt à être tiré, l'ennemi replacé à droite.
 
 ![Le missile touche l'ennemi : le missile et l'ennemi disparaissent et le score passe de 0 à 100.](img/collision-tir-score.gif)
 

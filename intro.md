@@ -2,7 +2,7 @@
 
 ## Un jeu de tir à toi, dans ton navigateur
 
-Des ennemis qui déboulent par la droite, un score qui grimpe. Tu vas le programmer toi-même, en Lua, dans TIC-80 : une petite console de jeu qui tient dans un onglet.
+Des ennemis qui arrivent par la droite, un score qui monte. Tu vas le programmer toi-même, en Lua, dans TIC-80 : une petite console de jeu qui tient dans un onglet.
 
 Dans un quart d'heure, ton Père Noël bouge déjà. À la fin, le jeu a ton ciel, tes effets et tes armes.
 

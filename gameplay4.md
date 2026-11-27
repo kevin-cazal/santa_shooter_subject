@@ -38,9 +38,9 @@ Une liste de défis. Choisis-en un ou plusieurs, dans l'ordre que tu veux : chac
 ### Triple tir
 <!-- ws: {type: exercise, id: gameplay-triple-tir} -->
 
-**Ton objectif :** trois missiles en éventail : un tout droit, un qui monte, un qui descend.
+**Ton objectif :** trois missiles tirés en même temps : un tout droit, un vers le haut, un vers le bas.
 
-**C'est réussi si :** l'éventail s'ouvre en avançant.
+**C'est réussi si :** les trois missiles s'écartent en avançant.
 
 ### Tir plus rapide
 <!-- ws: {type: exercise, id: gameplay-tir-rapide} -->

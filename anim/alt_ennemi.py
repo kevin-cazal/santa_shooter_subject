@@ -1,5 +1,5 @@
 # Alternative manim au GIF img/ennemi-mouvement.gif : l'ennemi traverse l'écran
-# de droite à gauche, et repart de la droite à une hauteur au hasard.
+# de droite à gauche, et est replacé à droite à une hauteur au hasard.
 #
 #   capture.py anim anim/alt_ennemi.py LEnnemiTraverse -o img/alt-ennemi-mouvement.webp --fps 30 --no-video
 from manim import *

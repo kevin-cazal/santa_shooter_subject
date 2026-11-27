@@ -71,7 +71,7 @@ end
 ### Mise en application
 <!-- ws:doit -->
 
-**Ton objectif :** une table `enemy`, `enemy:update()` pour le mouvement et la réapparition, `enemy:draw()`.
+**Ton objectif :** une table `enemy`, `enemy:update()` pour le mouvement et le replacement à droite, `enemy:draw()`.
 
 **C'est réussi si :** plus de `ex`, `ey`, `vex`, `vey`, et l'ennemi traverse comme avant.
 

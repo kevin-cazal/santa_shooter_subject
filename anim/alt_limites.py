@@ -1,5 +1,5 @@
 # Alternative manim aux GIF img/limites-avant.gif et img/limites-apres.gif :
-# sans conditions, le bonnet sort de l'écran et disparaît ; avec, il s'arrête
+# sans conditions, le bonnet sort de l'écran et on ne le voit plus ; avec, il s'arrête
 # contre le bord. La manette montre la flèche maintenue.
 #
 #   capture.py anim anim/alt_limites.py LesLimitesAvantApres -o img/alt-limites.webp --fps 30
@@ -18,7 +18,7 @@ class LesLimitesAvantApres(Scene):
         self.add(ecran.cadre, j, k)
 
         self.next_section("avant : sans conditions, le joueur sort de l'écran")
-        p = phrase("avant : sans conditions, le joueur sort de l'écran et disparaît")
+        p = phrase("avant : sans conditions, le joueur sort de l'écran et on ne le voit plus")
         self.play(FadeIn(p), Transform(k, manette("→", True).move_to(k)), run_time=0.3)
         self.play(x.animate.set_value(260), run_time=2.2, rate_func=linear)
         self.play(Transform(k, manette("→").move_to(k)), run_time=0.15)
