@@ -3,6 +3,7 @@
 # écran de 240 × 136 aux coordonnées du jeu (0, 0 en haut à gauche, y vers le
 # bas), du code écrit comme l'élève le tape, et une phrase sous la figure.
 import math
+import re
 from manim import *
 
 # La palette du cart, index 0 à 15.
@@ -153,6 +154,38 @@ def manette(touche, allumee=False, taille=0.6):
                          fill_color=ALERTE if allumee else PANNEAU, fill_opacity=1)
     t = texte(touche, 22, FOND if allumee else DOUX).move_to(k)
     return VGroup(k, t)
+
+
+# Une couleur par objet du jeu, dans les animations comme dans le sujet : celle de son
+# sprite. Le missile est blanc, la couleur du texte : il prend le bleu clair de la palette.
+C_JOUEUR, C_ENNEMI, C_MISSILE = ROUGE, VERT, BLEU
+
+
+def var(t, famille, taille=22, couleur=BLANC):
+    """`ex = 232` : chaque nom devant un `=` prend la couleur de son objet, le reste
+    garde `couleur`. Un nom peut avoir des espaces (« enemy x = 232 »)."""
+    m = code(t, taille, couleur)
+    sans = t.replace(" ", "")
+    for nom in re.findall(r"([A-Za-z_][A-Za-z0-9_ .]*?)\s*=", t):
+        cle = nom.replace(" ", "")
+        i = sans.find(cle + "=")
+        if i >= 0:
+            m[i:i + len(cle)].set_color(famille)
+    return m
+
+
+def bapteme(scene, longs, courts, famille, taille, position, buff=0.15, attente=0.9, run_time=0.8):
+    """À la première apparition d'une variable : son nom long (« enemy y = 101 ») se
+    transforme en son nom court (« ey = 101 »), dans la couleur de son objet. Rend le
+    groupe des noms courts, à retirer de la scène si un `always_redraw` prend la suite."""
+    if isinstance(longs, str):
+        longs, courts = [longs], [courts]
+    l = VGroup(*[var(t, famille, taille) for t in longs]).arrange(DOWN, aligned_edge=LEFT, buff=buff).move_to(position)
+    c = VGroup(*[var(t, famille, taille) for t in courts]).arrange(DOWN, aligned_edge=LEFT, buff=buff).move_to(position)
+    scene.play(FadeIn(l), run_time=0.4)
+    scene.wait(attente)
+    scene.play(FadeTransform(l, c), run_time=run_time)
+    return c
 
 
 def etiquette(t, couleur=ALERTE, taille=22):

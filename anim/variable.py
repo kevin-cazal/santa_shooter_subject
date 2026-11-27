@@ -15,8 +15,8 @@ class LaVariable(Scene):
         ecran = Ecran(px=0.026, centre=RIGHT * 3.2 + UP * 0.9)
         bonnet = always_redraw(lambda: ecran.sprite("joueur", int(x.get_value()), 60, 2))
         etiq = always_redraw(lambda: VGroup(origine(ecran.pos(int(x.get_value()), 60)),
-                                            etiquette(f"x = {int(x.get_value())}", ALERTE, 22).next_to(ecran.pos(int(x.get_value()) + 8, 60), UP, buff=0.15)))
-        boite = Boite("x", 20, centre=LEFT * 3.4 + DOWN * 0.9)
+                                            var(f"x = {int(x.get_value())}", C_JOUEUR, 22).next_to(ecran.pos(int(x.get_value()) + 8, 60), UP, buff=0.15)))
+        boite = Boite("x", 20, couleur=C_JOUEUR, centre=LEFT * 3.4 + DOWN * 0.9)
         tours = ValueTracker(0)
         cpt = Compteur("tour", tours.get_value, chiffres=2, couleur=CIEL).scale(0.65)
         cpt.shift(RIGHT * 3.2 + DOWN * 2.5 - cpt.fenetre.get_center())
@@ -28,7 +28,10 @@ class LaVariable(Scene):
         self.play(Write(ligne), run_time=0.6)
         p = phrase("la boîte x contient 20 : le bonnet est dessiné à x = 20")
         self.play(FadeIn(p), run_time=0.3)
-        boite.poser(self)
+        # Le nom long d'abord, « player x », puis le nom court x au-dessus de la boîte.
+        c = bapteme(self, "player x", "x", C_JOUEUR, 24, boite.nom.get_center())
+        self.remove(c); self.add(boite.nom)
+        self.play(FadeIn(boite.cadre), FadeIn(boite.val), run_time=0.5)
         self.play(FadeIn(ecran.cadre), run_time=0.3)
         self.play(FadeTransform(boite.val.copy(), etiq), FadeIn(bonnet), run_time=0.6)
         g = guides(ecran, 20, 60)

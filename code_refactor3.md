@@ -10,7 +10,7 @@ Beaucoup de variables globales : `x`, `y`, `mx`, `ex`... Plus tu ajoutes d'armes
 
 > 🧰 **Une table avec des cases nommées** : `player.x` se lit « la case `x` de la boîte `player` ».
 >
-> ![Six variables éparpillées : x, y, player_speed, ex, ey, vex. Les trois du joueur se rangent dans une boîte player, avec des cases x, y, speed. player.x se lit : la case x de la boîte player. Puis les trois de l'ennemi forment une boîte enemy, avec les mêmes noms de cases.](img/refactor-tables.webp)
+> ![Six variables éparpillées, en rouge pour le joueur et en vert pour l'ennemi : x, y, player_speed, ex, ey, vex. Les trois du joueur se rangent dans une boîte player, avec des cases x, y, speed. player.x se lit : la case x de la boîte player. Puis les trois de l'ennemi forment une boîte enemy, avec les mêmes noms de cases.](img/refactor-tables.webp)
 > <!-- ws:anim {src: img/refactor-tables.webm, chapters: img/refactor-tables.vtt} -->
 
 > 🧰 **Une fonction dans une table, et `self`** : écrite avec `:`, la fonction reçoit la table sous le nom `self`.

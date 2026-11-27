@@ -6,9 +6,9 @@ math.random(1, 6) : la roue s'arrête sur un nombre
 00:15.200 --> 00:20.767
 math.random(0, 136) : la roue tombe sur 101
 
-00:20.767 --> 00:24.267
+00:20.767 --> 00:25.367
 101 devient ey : la hauteur de l'ennemi
 
-00:24.267 --> 00:28.967
+00:25.367 --> 00:30.067
 l'ennemi avance : ex baisse, ey reste 101
 

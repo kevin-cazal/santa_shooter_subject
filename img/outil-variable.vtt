@@ -1,14 +1,14 @@
 WEBVTT
 
-00:00.000 --> 00:04.100
+00:00.000 --> 00:06.200
 x = 20 : une boîte, et le bonnet est à 20
 
-00:04.100 --> 00:06.900
+00:06.200 --> 00:09.000
 changer la boîte, c'est déplacer le bonnet
 
-00:06.900 --> 00:11.765
+00:09.000 --> 00:13.865
 dans TIC() : la boîte est remplie à chaque tour
 
-00:11.765 --> 00:15.797
+00:13.865 --> 00:17.897
 hors de TIC() : remplie une seule fois, le bonnet avance
 

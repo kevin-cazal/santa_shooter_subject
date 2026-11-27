@@ -13,7 +13,7 @@ Un joueur qui bouge, qui tire, des ennemis, un score. Les étapes se font dans l
 
 **Un jeu, c'est une boucle.** TIC-80 appelle ta fonction `TIC` 60 fois par seconde.
 
-![La boucle de jeu. x = 0 s'exécute une fois. Puis TIC tourne : x = 0 + 1 donne x = 1, cls vide l'écran, spr dessine le bonnet à la position x. Tour après tour, de plus en plus vite : le bonnet avance d'un pixel par image.](img/intro-boucle.webp)
+![La boucle de jeu, x en rouge comme le bonnet. x = 0 s'exécute une fois. Puis TIC tourne : x = 0 + 1 donne x = 1, cls vide l'écran, spr dessine le bonnet à la position x. Tour après tour, de plus en plus vite : le bonnet avance d'un pixel par image.](img/intro-boucle.webp)
 <!-- ws:anim {src: img/intro-boucle.webm, chapters: img/intro-boucle.vtt} -->
 
 # Mouvement joueur
@@ -78,7 +78,7 @@ Le bonnet s'affiche. Maintenant, il bouge avec les flèches.
 > print(vies)   --> 3
 > ```
 >
-> ![x = 20 : la boîte x contient 20, et le jeu dessine le bonnet à 20. x = 120 : le bonnet est à 120. Écrite dans TIC(), la ligne x = 20 s'exécute à chaque tour : x est remis à 20, le bonnet n'avance pas malgré l'appui sur le bouton. Hors de TIC(), la boîte est remplie une seule fois et le bonnet avance.](img/outil-variable.webp)
+> ![player x devient x, en rouge comme le bonnet. x = 20 : la boîte x contient 20, et le jeu dessine le bonnet à 20. x = 120 : le bonnet est à 120. Écrite dans TIC(), la ligne x = 20 s'exécute à chaque tour : x est remis à 20, le bonnet n'avance pas malgré l'appui sur le bouton. Hors de TIC(), la boîte est remplie une seule fois et le bonnet avance.](img/outil-variable.webp)
 > <!-- ws:anim {src: img/outil-variable.webm, chapters: img/outil-variable.vtt} -->
 >
 > Doc Lua (en anglais) : [les variables](https://www.lua.org/manual/5.3/manual.html#3.2)
@@ -91,7 +91,7 @@ Le bonnet s'affiche. Maintenant, il bouge avec les flèches.
 > compteur = compteur - 1   --> 0
 > ```
 >
-> ![Le bonnet porte son nombre x, sa position : 20, avec un point à son origine. x = x + 1 : x prend 1 de plus, le bonnet avance d'un pixel sur une loupe où chaque pixel se voit. Encore : 22, 23, 24. La loupe se referme sur l'écran : x continue, 60 fois par seconde, avec un compteur d'images.](img/outil-incrementer.webp)
+> ![Le bonnet porte son nombre x, player x qui devient x, en rouge : sa position, 20, avec un point à son origine. x = x + 1 : x prend 1 de plus, le bonnet avance d'un pixel sur une loupe où chaque pixel se voit. Encore : 22, 23, 24. La loupe se referme sur l'écran : x continue, 60 fois par seconde, avec un compteur d'images.](img/outil-incrementer.webp)
 > <!-- ws:anim {src: img/outil-incrementer.webm, chapters: img/outil-incrementer.vtt} -->
 >
 > Doc Lua (en anglais) : [l'affectation](https://www.lua.org/manual/5.3/manual.html#3.3.3), [`+` et `-`](https://www.lua.org/manual/5.3/manual.html#3.4.1)
@@ -147,7 +147,7 @@ Trop loin, le bonnet sort de l'écran. Il doit s'arrêter contre les bords.
 
 > 🧰 **Les quatre bords** : `x` et `y` sont le coin en haut à gauche d'un sprite de 8 pixels.
 >
-> ![Les quatre bords, avec x et y collés au bonnet. À gauche, x vaut 0. En haut, y vaut 0. À droite, avec x = 240 le sprite est déjà sorti : une loupe montre ses 8 pixels, son bord droit est x + 8, il touche quand x + 8 vaut 240. En bas, pareil avec y + 8 et 136. Quatre bords, quatre conditions.](img/limites-bords.webp)
+> ![Les quatre bords, avec player x et player y qui deviennent x et y, en rouge, collés au bonnet. À gauche, x vaut 0. En haut, y vaut 0. À droite, avec x = 240 le sprite est déjà sorti : une loupe montre ses 8 pixels, son bord droit est x + 8, il touche quand x + 8 vaut 240. En bas, pareil avec y + 8 et 136. Quatre bords, quatre conditions.](img/limites-bords.webp)
 > <!-- ws:anim {src: img/limites-bords.webm, chapters: img/limites-bords.vtt} -->
 <!-- /ws:toolbox -->
 
@@ -258,7 +258,7 @@ Si tu martèles le bouton, le missile est replacé devant le joueur alors qu'il 
 
 > 🧰 **Un seul missile, deux états : prêt à être tiré, tiré.** Sa vitesse dit dans lequel il est.
 >
-> ![Un seul missile, deux états. Prêt à être tiré : hors de l'écran, vitesse 0, ses trois nombres mx, my, vmx posés à côté. Appui sur Z : tiré depuis le joueur, vmx = 3, les nombres sont rangés sur le côté, reliés par un fil. Au ralenti, à chaque image vmx s'ajoute à mx, avec un compteur d'images. Sorti à droite : remis hors de l'écran, prêt à être tiré. Puis un curseur vmx : à 0 le missile ne part pas, à 8 il va plus vite, à -3 il recule.](img/tir-cycle.webp)
+> ![Un seul missile, deux états. Ses trois nombres, en bleu : missile x, missile y, vitesse missile x deviennent mx, my, vmx. Prêt à être tiré : hors de l'écran, vitesse 0, les nombres posés à côté. Appui sur Z : tiré depuis le joueur, vmx = 3, les nombres sont rangés sur le côté, reliés par un fil. Au ralenti, à chaque image vmx s'ajoute à mx, avec un compteur d'images. Sorti à droite : remis hors de l'écran, prêt à être tiré. Puis un curseur vmx : à 0 le missile ne part pas, à 8 il va plus vite, à -3 il recule.](img/tir-cycle.webp)
 > <!-- ws:anim {src: img/tir-cycle.webm, chapters: img/tir-cycle.vtt} -->
 <!-- /ws:toolbox -->
 
@@ -312,7 +312,7 @@ L'ennemi avance tout seul vers la gauche. Sorti à gauche, il est replacé à dr
 > print(de)   --> 4 (ou 1, 2, 3, 5, 6 : comme un dé)
 > ```
 >
-> ![math.random(1, 6) : une roue de loterie, trois tours, trois nombres : 4, 1, 6. Puis math.random(0, 136), une roue graduée de 0 à 136 avec un repère entre 136 et 0 : elle tombe sur 101. 101 devient ey, la hauteur de l'ennemi, son ex vaut 232. L'ennemi avance vers la gauche : ex baisse, ey reste 101.](img/outil-random.webp)
+> ![math.random(1, 6) : une roue de loterie, trois tours, trois nombres : 4, 1, 6. Puis math.random(0, 136), une roue graduée de 0 à 136 avec un repère entre 136 et 0 : elle tombe sur 101. 101 devient enemy y, puis ey, en vert comme l'ennemi : sa hauteur. enemy x, ex, vaut 232. L'ennemi avance vers la gauche : ex baisse, ey reste 101.](img/outil-random.webp)
 > <!-- ws:anim {src: img/outil-random.webm, chapters: img/outil-random.vtt} -->
 >
 > Doc Lua (en anglais) : [`math.random`](https://www.lua.org/manual/5.3/manual.html#pdf-math.random)

@@ -30,9 +30,9 @@ class LeTir(Scene):
             return ecran.pos(mx.get_value() + 20, my.get_value() + 6) + RIGHT * 0.9
 
         def tags_f():
-            g = VGroup(etiquette(f"mx  = {int(mx.get_value()):>4}", BLANC, 26),
-                       etiquette(f"my  = {int(my.get_value()):>4}", BLANC, 26),
-                       etiquette(f"vmx = {int(vmx.get_value()):>4}", CHANGE, 26)).arrange(DOWN, aligned_edge=LEFT, buff=0.22)
+            g = VGroup(var(f"mx  = {int(mx.get_value()):>4}", C_MISSILE, 26),
+                       var(f"my  = {int(my.get_value()):>4}", C_MISSILE, 26),
+                       var(f"vmx = {int(vmx.get_value()):>4}", C_MISSILE, 26)).arrange(DOWN, aligned_edge=LEFT, buff=0.22)
             return g.move_to(interpolate(pres(), LOIN, cote.get_value()))
 
         tags = always_redraw(tags_f)
@@ -41,7 +41,7 @@ class LeTir(Scene):
         fleche = always_redraw(lambda: fleche_vitesse(ecran.pos(mx.get_value(), my.get_value() + 8), vmx.get_value(), 0, echelle=0.05)
                                .set_opacity(1 if vmx.get_value() != 0 and 0 <= mx.get_value() < W else 0))
         touche = manette("Z").move_to(RIGHT * 4.6 + DOWN * 0.4)
-        self.add(ecran.cadre, joueur, missile, point, lien, tags, etat, fleche, touche)
+        self.add(ecran.cadre, joueur, missile, point, touche)
 
         def appui():
             self.play(Transform(touche, manette("Z", True).move_to(touche)), run_time=0.12)
@@ -54,8 +54,14 @@ class LeTir(Scene):
 
         # 1. Prêt à être tiré.
         self.next_section("prêt à être tiré : hors de l'écran, vmx = 0")
+        p = phrase("le missile a trois nombres : sa position, sa vitesse")
+        self.play(FadeIn(p), Indicate(point, color=CHANGE, scale_factor=2), run_time=1.0)
+        c = bapteme(self, ["missile x = -24", "missile y = -24", "vitesse missile x = 0"], ["mx  =  -24", "my  =  -24", "vmx =    0"], C_MISSILE, 26, pres(), buff=0.22)
+        self.remove(c)
+        self.add(lien, tags, etat, fleche)
+        self.play(FadeOut(p), run_time=0.2)
         p = phrase("prêt à être tiré : hors de l'écran, vitesse 0")
-        self.play(FadeIn(p), Indicate(point, color=CHANGE, scale_factor=2), run_time=1.0); self.wait(1.2)
+        self.play(FadeIn(p), run_time=0.3); self.wait(1.2)
 
         # 2. Le tir.
         self.next_section("appui sur Z : tiré depuis le joueur")

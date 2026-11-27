@@ -130,15 +130,17 @@ class LeHasard(Scene):
         ex, ey = ValueTracker(232), ValueTracker(101)
         ennemi = always_redraw(lambda: ecran.sprite_clippe("ennemi", int(ex.get_value()), int(ey.get_value()), 1))
         point = always_redraw(lambda: origine(ecran.pos(ex.get_value(), ey.get_value())))
-        etiq = always_redraw(lambda: VGroup(etiquette(f"ex = {int(ex.get_value())}", CHANGE, 22), etiquette(f"ey = {int(ey.get_value())}", CHANGE, 22))
+        etiq = always_redraw(lambda: VGroup(var(f"ex = {int(ex.get_value())}", C_ENNEMI, 22), var(f"ey = {int(ey.get_value())}", C_ENNEMI, 22))
                              .arrange(DOWN, aligned_edge=LEFT, buff=0.12).next_to(ecran.pos(ex.get_value(), ey.get_value()), UP, buff=0.25).shift(LEFT * 0.9))
         guide_y = always_redraw(lambda: DashedLine(ecran.pos(0, ey.get_value()), ecran.pos(ex.get_value(), ey.get_value()), stroke_color=CHANGE, stroke_width=2))
         p = phrase("101 est la hauteur de l'ennemi : ey = 101. Son x : 232, le bord droit")
         self.play(FadeIn(ecran.cadre), FadeIn(ecran.axes()), FadeIn(p), run_time=0.5)
-        ey_t = code("ey = 101", 30, CHANGE).move_to(carte)
-        self.play(FadeTransform(carte, ey_t), run_time=0.6)
+        # 101 devient « enemy y », puis le nom court ey ; enemy x arrive avec lui.
+        longs = VGroup(var("enemy x = 232", C_ENNEMI, 26), var("enemy y = 101", C_ENNEMI, 26)).arrange(DOWN, aligned_edge=LEFT, buff=0.15).move_to(carte)
+        self.play(FadeTransform(carte, longs), run_time=0.7)
+        self.wait(1.0)
         self.add(ennemi, point)
-        self.play(FadeTransform(ey_t, etiq), FadeIn(guide_y), run_time=0.8)
+        self.play(FadeTransform(longs, etiq), FadeIn(guide_y), run_time=0.8)
         self.wait(1.2)
 
         # 4. L'ennemi avance : x baisse, y ne change plus.

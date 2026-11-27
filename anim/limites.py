@@ -18,7 +18,7 @@ class LesLimites(Scene):
             origine(ecran.pos(int(px.get_value()), int(py.get_value())), rayon=0.07)))
         def etiq_f():
             x, y = int(px.get_value()), int(py.get_value())
-            e = etiquette(f"x = {x}  y = {y}", CHANGE, 22)
+            e = var(f"x = {x}  y = {y}", C_JOUEUR, 22)
             # Collée au bonnet : au-dessus, ou en dessous près du bord haut ; jamais hors du cadre.
             e.next_to(ecran.pos(x + 4, y + 8), DOWN, buff=0.3) if y < 20 else e.next_to(ecran.pos(x + 4, y), UP, buff=0.3)
             g, d = ecran.cadre.get_left()[0] + 0.1, ecran.cadre.get_right()[0] + 0.8
@@ -29,8 +29,10 @@ class LesLimites(Scene):
             return e
         etiq = always_redraw(etiq_f)
         gd = always_redraw(lambda: guides(ecran, int(px.get_value()), int(py.get_value())))
-        self.add(ecran.cadre, ecran.axes(), gd, joueur, etiq)
-        self.wait(0.5)
+        self.add(ecran.cadre, ecran.axes(), gd, joueur)
+        c = bapteme(self, "player x = 116  player y = 64", "x = 116  y = 64", C_JOUEUR, 22, etiq.get_center())
+        self.remove(c); self.add(etiq)
+        self.wait(0.4)
 
         def bord(a, b):
             return Line(a, b, stroke_color=LU, stroke_width=6)

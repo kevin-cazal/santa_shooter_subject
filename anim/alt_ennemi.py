@@ -14,8 +14,10 @@ class LEnnemiTraverse(Scene):
         e = always_redraw(lambda: VGroup(ecran.sprite_clippe("ennemi", int(ex.get_value()), int(ey.get_value()), 2),
                                          origine(ecran.pos(min(max(int(ex.get_value()), 0), 239), int(ey.get_value())))))
         j = ecran.sprite("joueur", 20, 60, 2)
-        tag = always_redraw(lambda: etiquette(f"ey = {int(ey.get_value())}", ALERTE, 24).next_to(ecran.cadre, DOWN, buff=0.3))
-        self.add(ecran.cadre, j, e, tag)
+        tag = always_redraw(lambda: var(f"ey = {int(ey.get_value())}", C_ENNEMI, 24).next_to(ecran.cadre, DOWN, buff=0.3))
+        self.add(ecran.cadre, j, e)
+        c = bapteme(self, "enemy y = 40", "ey = 40", C_ENNEMI, 24, tag.get_center())
+        self.remove(c); self.add(tag)
         p = phrase("l'ennemi traverse de droite à gauche. À chaque passage, sa hauteur est choisie au hasard")
         self.play(FadeIn(p), run_time=0.3)
         for h in (40, 104, 12, 76):
