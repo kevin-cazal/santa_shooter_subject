@@ -59,9 +59,9 @@ Un fond noir et cinquante étoiles qui défilent vers la gauche : le joueur semb
 
 **Ton objectif :** fond noir. Une liste de 50 étoiles, position et taille (1 à 5) au hasard, qui défilent de droite à gauche et reviennent à droite.
 
-<!-- illustration: résultat intermédiaire : le jeu sur fond noir, sans étoiles -->
+![Résultat intermédiaire : le jeu sur fond noir, sans étoiles.](img/etoiles-fond-noir.png)
 
-<!-- illustration: GIF : les 50 étoiles défilent, toutes à la même vitesse, le bonnet au milieu -->
+![Les 50 étoiles défilent vers la gauche, toutes à la même vitesse, le bonnet au milieu.](img/etoiles-defilement.gif)
 
 **C'est réussi si :** le ciel ne se vide jamais, et les étoiles n'ont pas toutes la même taille.
 
@@ -84,7 +84,7 @@ Une grosse étoile est proche, une petite est loin. Si les proches vont plus vit
 
 **Ton objectif :** là où tu fais avancer les étoiles, la vitesse dépend de la taille.
 
-<!-- illustration: GIF : le ciel en parallaxe, trois vitesses visibles -->
+![Le ciel en parallaxe : les grosses étoiles vont plus vite que les petites, trois vitesses visibles.](img/parallaxe-ciel.gif)
 
 **C'est réussi si :** des couches d'étoiles glissent à des vitesses différentes.
 
@@ -117,7 +117,7 @@ Poussière, neige, flammes, explosion : un effet de particules. Ici, l'ennemi ex
 
 **Ton objectif :** une liste de particules. À chaque collision, plusieurs naissent au point de contact, chacune avec sa vitesse et sa vie.
 
-<!-- illustration: GIF : le missile touche l'ennemi, huit particules naissent au point d'impact, s'écartent, puis sont retirées -->
+![Le missile touche l'ennemi : huit particules naissent au point d'impact, s'écartent, puis sont retirées. Le score monte de 100.](img/particules-explosion.gif)
 
 **C'est réussi si :** l'explosion part du contact, et il ne reste rien une seconde plus tard.
 

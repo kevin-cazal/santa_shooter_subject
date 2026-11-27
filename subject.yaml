@@ -13,6 +13,11 @@ project:
   summary: "Programmez votre propre jeu de tir, en Lua, avec TIC-80."
   entrypoint: "intro.md"
 
+# The front door: one sentence and one picture, the platform does the layout (§3.2b).
+cover:
+  media: img/intro-demo.gif
+  tagline: "Programme ton propre jeu de tir, en Lua, dans TIC-80."
+
 # The web app shown beside the instructions (PLAN.md §14). Same dist as pypong:
 # both subjects are written for the TIC-80 editor, only the language differs.
 runtime:

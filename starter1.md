@@ -9,7 +9,7 @@ Un joueur qui bouge, qui tire, des ennemis, un score. Les étapes se font dans l
 2. À gauche le jeu, à droite l'éditeur de code, dessous un terminal Lua pour essayer les exemples.
 3. Dans la console : `run` lance le jeu, `studio` ouvre les éditeurs, <kbd>Échap</kbd> revient à la console.
 
-<!-- illustration: la fenêtre TIC-80 à côté du sujet : le jeu, l'éditeur, le terminal Lua ; le bouton Ouvrir TIC-80 et la console encadrés -->
+![Le bouton Ouvrir TIC-80, encadré, ouvre la fenêtre à côté du sujet : à gauche le jeu avec sa console, encadrée, à droite l'éditeur de code, dessous le terminal Lua.](img/tic80-fenetre.png)
 
 **Un jeu, c'est une boucle.** TIC-80 appelle ta fonction `TIC` 60 fois par seconde.
 
@@ -180,7 +180,7 @@ Un joueur qui tire, c'est mieux. D'abord, le missile existe.
 
 **Ton objectif :** un missile dessiné dans une autre case, affiché en (10, 10) par deux variables `mx` et `my`.
 
-<!-- illustration: le bonnet et le missile affichés en même temps, le missile en haut à gauche en (10, 10) -->
+![Le bonnet et le missile affichés en même temps, le missile en haut à gauche, en (10, 10).](img/missile-position.png)
 
 **C'est réussi si :** missile et bonnet sont visibles en même temps.
 
@@ -217,7 +217,7 @@ Un appui sur le bouton de tir lance le missile tout droit, depuis le joueur.
 
 **Ton objectif :** une vitesse `vmx`. Au tir, le missile prend la position du joueur et une vitesse ; à chaque image, il avance.
 
-<!-- illustration: GIF avec manette : appui sur Z, le missile part de la position du joueur et traverse l'écran vers la droite -->
+![Appui sur Z : le missile est tiré depuis la position du joueur et traverse l'écran vers la droite. La manette sous le jeu allume le bouton au moment de l'appui.](img/tir-premier.gif)
 
 **C'est réussi si :** le missile part du bonnet et traverse l'écran sans dévier.
 
@@ -363,7 +363,7 @@ L'ennemi passe sur le bonnet sans que rien n'arrive. Quand ils se touchent, les 
 
 **Ton objectif :** une condition qui détecte le contact, et réinitialise les deux positions.
 
-<!-- illustration: GIF : l'ennemi arrive sur le bonnet : au contact, les deux sont replacés à leur position de départ -->
+![L'ennemi arrive sur le bonnet : au contact, les deux sont replacés à leur position de départ.](img/collision-contact.gif)
 
 **C'est réussi si :** le contact renvoie les deux sprites au départ, un passage à côté ne fait rien.
 

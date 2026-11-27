@@ -6,7 +6,7 @@ Des ennemis qui arrivent par la droite, un score qui monte. Tu vas le programmer
 
 Dans un quart d'heure, ton Père Noël bouge déjà. À la fin, le jeu a ton ciel, tes effets et tes armes.
 
-<!-- illustration: GIF de 15 s du jeu fini : ciel étoilé en parallaxe, tir, explosion en particules, score qui monte. La démo qui donne envie, rien d'autre. -->
+![Le jeu fini : un ciel étoilé en parallaxe, le bonnet qui tire, l'ennemi touché qui explose en particules, le score qui monte.](img/intro-demo.gif)
 
 ## Les quatre parties
 
