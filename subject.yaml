@@ -16,6 +16,7 @@ project:
 # The front door: one sentence and one picture, the platform does the layout (§3.2b).
 cover:
   media: img/intro-demo.gif
+  poster: img/intro-demo.png     # still for readers who asked for reduced motion
   tagline: "Programme ton propre jeu de tir, en Lua, dans TIC-80."
 
 # The web app shown beside the instructions (PLAN.md §14). Same dist as pypong:
