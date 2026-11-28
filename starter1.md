@@ -127,9 +127,9 @@ Le bonnet s'affiche. Maintenant, il bouge avec les flèches.
 ### Mise en application
 <!-- ws:doit -->
 
-**Ton objectif :** deux variables `x` et `y`, changées par les flèches, utilisées par `spr`.
+**Ton objectif :** deux variables <var class="joueur">x</var> et <var class="joueur">y</var>, changées par les flèches, utilisées par `spr`.
 
-🔤 `x`, `y` : variables qui représentent la position du joueur.
+🔤 <var class="joueur">x</var>, <var class="joueur">y</var> : variables qui représentent la position du joueur.
 
 ![Le joueur se déplace avec les flèches du clavier. La manette sous le jeu allume les touches au moment où elles sont appuyées.](img/input-deplacement.gif)
 
@@ -180,9 +180,9 @@ Un joueur qui tire, c'est mieux. D'abord, le missile existe.
 ### Mise en application
 <!-- ws:doit -->
 
-**Ton objectif :** un missile dessiné dans une autre case, affiché en (10, 10) par deux variables `mx` et `my`.
+**Ton objectif :** un missile dessiné dans une autre case, affiché en (10, 10) par deux variables <var class="missile">mx</var> et <var class="missile">my</var>.
 
-🔤 `mx`, `my` : variables qui représentent la position du missile.
+🔤 <var class="missile">mx</var>, <var class="missile">my</var> : variables qui représentent la position du missile.
 
 ![Le bonnet et le missile affichés en même temps, le missile en haut à gauche, en (10, 10).](img/missile-position.png)
 
@@ -219,9 +219,9 @@ Un appui sur le bouton de tir lance le missile tout droit, depuis le joueur.
 ### Mise en application
 <!-- ws:doit -->
 
-**Ton objectif :** une vitesse `vmx`. Au tir, le missile prend la position du joueur et une vitesse ; à chaque image, il avance.
+**Ton objectif :** une vitesse <var class="missile">vmx</var>. Au tir, le missile prend la position du joueur et une vitesse ; à chaque image, il avance.
 
-🔤 `vmx` : variable qui représente la vitesse du missile en x (horizontale).
+🔤 <var class="missile">vmx</var> : variable qui représente la vitesse du missile en x (horizontale).
 
 ![Appui sur Z : le missile est tiré depuis la position du joueur et traverse l'écran vers la droite. La manette sous le jeu allume le bouton au moment de l'appui.](img/tir-premier.gif)
 
@@ -332,9 +332,9 @@ L'ennemi avance tout seul vers la gauche. Sorti à gauche, il est replacé à dr
 ### Mise en application
 <!-- ws:doit -->
 
-**Ton objectif :** `ex`, `ey`, `vex`, `vey`. Il commence un peu à droite de l'écran, à un `ey` aléatoire, et y est replacé quand il sort à gauche.
+**Ton objectif :** <var class="ennemi">ex</var>, <var class="ennemi">ey</var>, <var class="ennemi">vex</var>, <var class="ennemi">vey</var>. Il commence un peu à droite de l'écran, à un <var class="ennemi">ey</var> aléatoire, et y est replacé quand il sort à gauche.
 
-🔤 `ex`, `ey` : variables qui représentent la position de l'ennemi. `vex`, `vey` : sa vitesse en x et en y.
+🔤 <var class="ennemi">ex</var>, <var class="ennemi">ey</var> : variables qui représentent la position de l'ennemi. <var class="ennemi">vex</var>, <var class="ennemi">vey</var> : sa vitesse en x et en y.
 
 ![L'ennemi traverse l'écran de droite à gauche. À chaque nouveau passage, sa hauteur est choisie au hasard.](img/ennemi-mouvement.gif)
 

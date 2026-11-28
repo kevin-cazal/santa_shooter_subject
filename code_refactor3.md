@@ -1,6 +1,6 @@
 # Refactor du code
 
-Beaucoup de variables globales : `x`, `y`, `mx`, `ex`... Plus tu ajoutes d'armes et d'ennemis, plus c'est dur à suivre. Ici, chaque objet du jeu rassemble ses valeurs et ses fonctions dans une table. Le jeu ne change pas : il se range.
+Beaucoup de variables globales : <var class="joueur">x</var>, <var class="joueur">y</var>, <var class="missile">mx</var>, <var class="ennemi">ex</var>... Plus tu ajoutes d'armes et d'ennemis, plus c'est dur à suivre. Ici, chaque objet du jeu rassemble ses valeurs et ses fonctions dans une table. Le jeu ne change pas : il se range.
 
 ## Notion d'objet en Lua
 <!-- ws: {type: prose} -->
@@ -61,9 +61,9 @@ end
 ### Mise en application
 <!-- ws:doit -->
 
-**Ton objectif :** une table `bullet` avec `x`, `y`, `speed`, `bullet:update()` pour le vol et le retour au repos, `bullet:draw()`.
+**Ton objectif :** une table `bullet` avec <var class="missile">x</var>, <var class="missile">y</var>, <var class="missile">speed</var>, `bullet:update()` pour le mouvement et la remise prêt à être tiré, `bullet:draw()`.
 
-**C'est réussi si :** plus de `mx`, `my`, `vmx`, et le tir marche comme avant.
+**C'est réussi si :** plus de <var class="missile">mx</var>, <var class="missile">my</var>, <var class="missile">vmx</var>, et le tir marche comme avant.
 
 ## Enemy
 <!-- ws: {type: exercise, id: refactor-enemy} -->
@@ -73,7 +73,7 @@ end
 
 **Ton objectif :** une table `enemy`, `enemy:update()` pour le mouvement et le replacement à droite, `enemy:draw()`.
 
-**C'est réussi si :** plus de `ex`, `ey`, `vex`, `vey`, et l'ennemi traverse comme avant.
+**C'est réussi si :** plus de <var class="ennemi">ex</var>, <var class="ennemi">ey</var>, <var class="ennemi">vex</var>, <var class="ennemi">vey</var>, et l'ennemi traverse comme avant.
 
 ## Collision
 <!-- ws: {type: exercise, id: refactor-collision} -->

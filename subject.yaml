@@ -13,6 +13,10 @@ project:
   summary: "Programmez votre propre jeu de tir, en Lua, avec TIC-80."
   entrypoint: "intro.md"
 
+# The subject's own stylesheet, linked on its pages: the variable names of the prose
+# in the colour of their object, the same as in the animations (§3.2c).
+style: style.css
+
 # The front door: one sentence and one picture, the platform does the layout (§3.2b).
 cover:
   media: img/intro-demo.gif

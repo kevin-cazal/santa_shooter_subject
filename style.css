@@ -1,0 +1,19 @@
+/* Santa Shooter — la feuille de style du sujet (subject.yaml: style).
+   Les noms de variables, dans la prose, prennent la couleur de l'objet du jeu
+   auquel ils appartiennent : la même que dans les animations (anim/commun.py).
+   joueur = le rouge du bonnet, ennemi = le vert du sprite, missile = le bleu
+   clair de la palette (le sprite est blanc, la couleur du texte).
+   Les règles ne touchent que les <var> du contenu rendu (.challenge-desc). */
+.challenge-desc var.joueur,
+.challenge-desc var.ennemi,
+.challenge-desc var.missile {
+  font-family: var(--bs-font-monospace, ui-monospace, Menlo, monospace);
+  font-style: normal;
+  font-weight: 600;
+}
+.challenge-desc var.joueur  { color: #b13e53; }
+.challenge-desc var.ennemi  { color: #2f9a52; }
+.challenge-desc var.missile { color: #1f7fd6; }
+[data-bs-theme="dark"] .challenge-desc var.joueur  { color: #e06a7c; }
+[data-bs-theme="dark"] .challenge-desc var.ennemi  { color: #a7f070; }
+[data-bs-theme="dark"] .challenge-desc var.missile { color: #41a6f6; }
